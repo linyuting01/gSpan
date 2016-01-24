@@ -29,6 +29,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ChildResultFrame extends javax.swing.JFrame {
 
     private JFileChooser openFile;
+    private File file;
 
     /**
      * Creates new form ChildResultFrame
@@ -44,6 +45,7 @@ public class ChildResultFrame extends javax.swing.JFrame {
 
         openFile = new JFileChooser();
         openFile.setSelectedFile(writefile);
+        file = writefile;
 
         LoadResult();
     }
@@ -117,16 +119,20 @@ public class ChildResultFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        btnSingle = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Kết quả");
         setMaximumSize(null);
         setMinimumSize(null);
-        setPreferredSize(new java.awt.Dimension(680, 489));
         setSize(new java.awt.Dimension(680, 489));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -155,16 +161,27 @@ public class ChildResultFrame extends javax.swing.JFrame {
             .addGap(0, 426, Short.MAX_VALUE)
         );
 
+        btnSingle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSingle.setText("Open single graph");
+        btnSingle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSingleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSingle)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -172,10 +189,14 @@ public class ChildResultFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnSingle))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,6 +263,12 @@ public class ChildResultFrame extends javax.swing.JFrame {
         LoadResult();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSingleActionPerformed
+        // TODO add your handling code here:
+        SingleGraphFrame frmSingleGraph = new SingleGraphFrame(file); 
+        frmSingleGraph.show();
+    }//GEN-LAST:event_btnSingleActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,8 +307,11 @@ public class ChildResultFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSingle;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
