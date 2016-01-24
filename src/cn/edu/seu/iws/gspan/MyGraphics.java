@@ -85,7 +85,7 @@ public class MyGraphics {
         g2d.setColor(Color.red);
         g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
         
-        g2d.setColor(Color.GREEN);
+        g2d.setColor(Color.BLACK);
         g2d.drawString(label, (p1.x + p2.x)/2, (p1.y + p2.y)/2);
     }
 }

@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cn.edu.seu.iws.gspan;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,13 +17,65 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import static oracle.jrockit.jfr.tools.ConCatRepository.usage;
+
+class ChildGraph {
+
+    public String t;
+    public ArrayList<String> Points;
+    public ArrayList<String> Vectors;
+
+    public ChildGraph() {
+        t = "";
+        Points = new ArrayList<String>();
+        Vectors = new ArrayList<String>();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.t);
+        hash = 97 * hash + Objects.hashCode(this.Points);
+        hash = 97 * hash + Objects.hashCode(this.Vectors);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ChildGraph other = (ChildGraph) obj;
+        if (Objects.equals(this.Points, other.Points)) {
+            return true;
+        }
+        if (Objects.equals(this.Vectors, other.Vectors)) {
+            return true;
+        }
+        if (this.Points.size() != other.Points.size()) {
+            return false;
+        }
+        if (this.Vectors.size() != other.Vectors.size()) {
+            return false;
+        }
+        return true;
+    }
+
+}
 
 /**
  *
@@ -30,11 +83,73 @@ import static oracle.jrockit.jfr.tools.ConCatRepository.usage;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private JFileChooser myFile;
+
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        myFile = new JFileChooser();
+    }
+
+    private void LoadResult() {
+
+        if (this.myFile.getSelectedFile() != null) {
+
+            List<Integer> diem;
+            diem = new ArrayList<Integer>();
+
+            File readfile = new File(this.myFile.getSelectedFile().getPath());
+            Point[] luudiem;
+            luudiem = new Point[21];
+            for (int i = 0; i < 21; i++) {
+                luudiem[i] = new Point(0, 0);
+            }
+            Graphics g;
+
+            g = jPanel1.getGraphics();
+            g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getWidth());
+
+            MyGraphics g2d = new MyGraphics(g);
+
+            try {
+                FileReader reader = new FileReader(readfile);
+                BufferedReader read = new BufferedReader(reader);
+                ArrayList<String> result = new ArrayList<String>();
+                String readgraph;
+                while ((readgraph = read.readLine()) != null) {
+                    result.clear();
+                    String[] splitread = readgraph.split(" ");
+                    for (String aa : splitread) {
+                        result.add(aa);
+                    }
+
+                    if (result.isEmpty()) {
+
+                    } else if (result.get(0).equals("t")) {
+
+                    } else if (result.get(0).equals("v") && result.size() >= 3) {
+                        int id = Integer.parseInt(result.get(1));
+                        int label = Integer.parseInt(result.get(2));
+                        diem.add(id);
+                        g2d.VeDiem(luudiem, id, label);
+                        //this.get(id).label = Integer.parseInt(result.get(2));
+                    } else if (result.get(0).equals("e") && result.size() >= 4) {
+                        int from = Integer.parseInt(result.get(1));
+                        //long from = Long.parseLong(result.get(1));
+                        int to = Integer.parseInt(result.get(2));
+                        int elabel = Integer.parseInt(result.get(3));
+                        g2d.VeCanh(luudiem[from], luudiem[to], elabel + "");
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
     /**
@@ -56,6 +171,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtMinSup = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +228,14 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel4.setText("%");
 
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton3.setText("Reload");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,15 +260,18 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(250, 250, 250)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtMinSup, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +280,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -173,11 +301,13 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+        jPanel1.repaint();
+
         JFileChooser openFile = new JFileChooser();
-        FileFilter filter = new FileNameExtensionFilter("Text File","txt");
+        FileFilter filter = new FileNameExtensionFilter("Text File", "txt");
         openFile.setFileFilter(filter);
-        if(openFile.showOpenDialog(null)==0) {
+        if (openFile.showOpenDialog(null) == 0) {
+            this.myFile = openFile;
             txtMinSup.setEnabled(true);
             txtFileOut.setEnabled(true);
             jButton2.setEnabled(true);
@@ -188,91 +318,92 @@ public class MainFrame extends javax.swing.JFrame {
             Point[] luudiem;
             luudiem = new Point[21];
             for (int i = 0; i < 21; i++) {
-                luudiem[i] = new Point(0,0);
+                luudiem[i] = new Point(0, 0);
             }
             Graphics g;
             g = jPanel1.getGraphics();
-            
+
             MyGraphics g2d = new MyGraphics(g);
-            
+
             try {
                 FileReader reader = new FileReader(readfile);
                 BufferedReader read = new BufferedReader(reader);
                 ArrayList<String> result = new ArrayList<String>();
                 String readgraph;
-                while((readgraph = read.readLine()) != null)
-                            {
-                                    result.clear();
-                                    String[] splitread = readgraph.split(" ");
-                                    for(String aa : splitread)
-                                    {
-                                            result.add(aa);
-                                    }
+                while ((readgraph = read.readLine()) != null) {
+                    result.clear();
+                    String[] splitread = readgraph.split(" ");
+                    for (String aa : splitread) {
+                        result.add(aa);
+                    }
 
-                                    if(result.isEmpty())
-                                    {
+                    if (result.isEmpty()) {
 
-                                    }
-                                    else if(result.get(0).equals("t"))
-                                    {
+                    } else if (result.get(0).equals("t")) {
 
-                                    }
-                                    else if(result.get(0).equals("v") && result.size() >=3)
-                                    {
-                                            int id = Integer.parseInt(result.get(1));
-                                            int label = Integer.parseInt(result.get(2));
-                                            diem.add(id);
-                                            g2d.VeDiem(luudiem, id, label);
-                                            //this.get(id).label = Integer.parseInt(result.get(2));
-                                    }
-                                    else if(result.get(0).equals("e") && result.size() >=4)
-                                    {
-                                            int from = Integer.parseInt(result.get(1));
-                                            //long from = Long.parseLong(result.get(1));
-                                            int to = Integer.parseInt(result.get(2));
-                                            int elabel = Integer.parseInt(result.get(3));
-                                            g2d.VeCanh(luudiem[from], luudiem[to], elabel+"");
-                                    }
-                            }
+                    } else if (result.get(0).equals("v") && result.size() >= 3) {
+                        int id = Integer.parseInt(result.get(1));
+                        int label = Integer.parseInt(result.get(2));
+                        diem.add(id);
+                        g2d.VeDiem(luudiem, id, label);
+                        //this.get(id).label = Integer.parseInt(result.get(2));
+                    } else if (result.get(0).equals("e") && result.size() >= 4) {
+                        int from = Integer.parseInt(result.get(1));
+                        //long from = Long.parseLong(result.get(1));
+                        int to = Integer.parseInt(result.get(2));
+                        int elabel = Integer.parseInt(result.get(3));
+                        g2d.VeCanh(luudiem[from], luudiem[to], elabel + "");
+                    }
+                }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(txtFileOut.getText().equals(""))
+        if (txtFileOut.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Bạn phải nhập tên File Out vào!");
-        else {
-		int minsup = Integer.parseInt(txtMinSup.getText());
-		int maxpat = 100000;
-		int minnodes = 0;
-		boolean directed = false;
-		
-		usage();
+        } else {
+            int minsup = Integer.parseInt(txtMinSup.getText());
+            int maxpat = 100000;
+            int minnodes = 0;
+            boolean directed = false;
 
-		File readfile = new File(txtFile.getText());
-		File writefile = new File(txtFileOut.getText());
-		FileReader reader;
+            usage();
+
+            File readfile = new File(txtFile.getText());
+            File writefile = new File(txtFileOut.getText());
+            FileReader reader;
             try {
                 reader = new FileReader(readfile);
                 FileWriter writer = new FileWriter(writefile);
-		writer.flush();
-                
-		gSpan gspan = new gSpan();
+                writer.flush();
 
-		gspan.run(reader, writer, minsup, maxpat, minnodes, directed);
-		
-		JOptionPane.showMessageDialog(null, "Đã lưu kết quả vào file " +txtFileOut.getText());
+                gSpan gspan = new gSpan();
+
+                gspan.run(reader, writer, minsup, maxpat, minnodes, directed);
+
+                CleanFile(writefile);
+
+                JOptionPane.showMessageDialog(null, "Đã lưu kết quả vào file " + txtFileOut.getText());
+
+                ChildResultFrame frmResult = new ChildResultFrame(writefile.getAbsoluteFile());
+                frmResult.show();
             } catch (Exception ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-		
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        LoadResult();
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,6 +443,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -321,4 +453,89 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtFileOut;
     private javax.swing.JTextField txtMinSup;
     // End of variables declaration//GEN-END:variables
+
+    private void CleanFile(File writefile) {
+        ArrayList<String> lines = new ArrayList<String>();
+        ArrayList<ChildGraph> Graphs = new ArrayList<ChildGraph>();
+
+        /// Read file
+        try {
+            FileReader reader = new FileReader(writefile);
+            BufferedReader read = new BufferedReader(reader);
+
+            String readgraph;
+
+            while ((readgraph = read.readLine()) != null) {
+                lines.add(readgraph);
+
+            }
+        } catch (Exception e) {
+
+        }
+
+        /// Handling
+        int index = 0;
+
+        while (index < lines.size()) {
+            String line = lines.get(index);
+
+            if (line.charAt(0) != 't') {
+
+            } else /// line[0] == 't'
+            {
+                ChildGraph childGraph = new ChildGraph();
+                index++;
+
+                while ((index < lines.size()) && (lines.get(index).charAt(0) != 't')) {
+                    if (lines.get(index).charAt(0) == 'v') {
+                        childGraph.Points.add(lines.get(index));
+                    }
+
+                    if (lines.get(index).charAt(0) == 'e') {
+                        childGraph.Vectors.add(lines.get(index));
+                    }
+
+                    index++;
+                }
+
+                if (!Graphs.contains(childGraph)) {
+                    Graphs.add(childGraph);
+                }
+
+                index--;
+            }
+
+            index++;
+        }
+
+        index = 0;
+        for (ChildGraph graph : Graphs) {
+            graph.t = "t # " + index + " * 1";
+            index++;
+        }
+
+        /// Write file
+        try {
+            FileWriter writer = new FileWriter(writefile);
+            ///writer.flush();
+            BufferedWriter write = new BufferedWriter(writer);
+
+            for (ChildGraph Graph : Graphs) {
+                write.write(Graph.t + "\n");
+                ///writer.flush();
+                for (String Point : Graph.Points) {
+                    write.write(Point + "\n");
+                    ///writer.flush();
+                }
+                for (String Vector : Graph.Vectors) {
+                    write.write(Vector + "\n");
+                    ///writer.flush();
+                }
+            }
+            write.close();
+            System.out.println("Writen!");
+        } catch (Exception e) {
+
+        }
+    }
 }
