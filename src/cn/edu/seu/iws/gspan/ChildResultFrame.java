@@ -30,6 +30,10 @@ public class ChildResultFrame extends javax.swing.JFrame {
 
     private JFileChooser openFile;
     private File file;
+    private ArrayList<String> relationships;
+    private ArrayList<ChildGraph> Graphs;
+    private ArrayList<String> names;
+    private ArrayList<String> pictures;
 
     /**
      * Creates new form ChildResultFrame
@@ -46,64 +50,59 @@ public class ChildResultFrame extends javax.swing.JFrame {
         openFile = new JFileChooser();
         openFile.setSelectedFile(writefile);
         file = writefile;
-
-        LoadResult();
+        relationships = new ArrayList<String>();
+        Graphs = new ArrayList<ChildGraph>();
+        names = new ArrayList<String>();
+        pictures = new ArrayList<String>();
     }
 
     private void LoadResult() {
 
-        if (openFile.getSelectedFile() != null) {
+        /// Show graphs
+        ArrayList<String> result = new ArrayList<String>();
 
-            List<Integer> diem;
-            diem = new ArrayList<Integer>();
+        List<Integer> diem;
+        diem = new ArrayList<Integer>();
+        Point[] luudiem;
+        luudiem = new Point[21];
+        for (int i = 0; i < 21; i++) {
+            luudiem[i] = new Point(0, 0);
+        }
 
-            File readfile = new File(openFile.getSelectedFile().getPath());
-            Point[] luudiem;
-            luudiem = new Point[21];
-            for (int i = 0; i < 21; i++) {
-                luudiem[i] = new Point(0, 0);
-            }
-            Graphics g;
-            
-            g = jPanel1.getGraphics();
-            g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+        Graphics g;
+        g = jPanel1.getGraphics();
+        g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getWidth());
+        MyGraphics g2d = new MyGraphics(g);
 
-            MyGraphics g2d = new MyGraphics(g);
-
-            try {
-                FileReader reader = new FileReader(readfile);
-                BufferedReader read = new BufferedReader(reader);
-                ArrayList<String> result = new ArrayList<String>();
-                String readgraph;
-                while ((readgraph = read.readLine()) != null) {
+        if (Graphs.size() >= 1) {
+            for (ChildGraph Graph : Graphs) {
+                for (String Point : Graph.Points) {
                     result.clear();
-                    String[] splitread = readgraph.split(" ");
+                    String[] splitread = Point.split(" ");
                     for (String aa : splitread) {
                         result.add(aa);
                     }
 
-                    if (result.isEmpty()) {
-
-                    } else if (result.get(0).equals("t")) {
-
-                    } else if (result.get(0).equals("v") && result.size() >= 3) {
-                        int id = Integer.parseInt(result.get(1));
-                        int label = Integer.parseInt(result.get(2));
-                        diem.add(id);
-                        g2d.VeDiem(luudiem, id, label);
-                        //this.get(id).label = Integer.parseInt(result.get(2));
-                    } else if (result.get(0).equals("e") && result.size() >= 4) {
-                        int from = Integer.parseInt(result.get(1));
-                        //long from = Long.parseLong(result.get(1));
-                        int to = Integer.parseInt(result.get(2));
-                        int elabel = Integer.parseInt(result.get(3));
-                        g2d.VeCanh(luudiem[from], luudiem[to], elabel + "");
-                    }
+                    int id = Integer.parseInt(result.get(1));
+                    int label = Integer.parseInt(result.get(2));
+                    diem.add(id);
+                    ///g2d.VeDiem(luudiem, id, label);
+                    g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
                 }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+
+                for (String Vector : Graph.Vectors) {
+                    result.clear();
+                    String[] splitread = Vector.split(" ");
+                    for (String aa : splitread) {
+                        result.add(aa);
+                    }
+
+                    int from = Integer.parseInt(result.get(1));
+                    int to = Integer.parseInt(result.get(2));
+                    int elabel = Integer.parseInt(result.get(3));
+                    String strlabel = relationships.get(elabel - 1);
+                    g2d.VeCanh(luudiem[from], luudiem[to], strlabel);
+                }
             }
 
         }
@@ -215,40 +214,114 @@ public class ChildResultFrame extends javax.swing.JFrame {
                 luudiem[i] = new Point(0, 0);
             }
             Graphics g;
-            
+
             g = jPanel1.getGraphics();
-          
+
             MyGraphics g2d = new MyGraphics(g);
 
             try {
                 FileReader reader = new FileReader(readfile);
-                BufferedReader read = new BufferedReader(reader);
+                BufferedReader buffer = new BufferedReader(reader);
                 ArrayList<String> result = new ArrayList<String>();
-                String readgraph;
-                while ((readgraph = read.readLine()) != null) {
-                    result.clear();
-                    String[] splitread = readgraph.split(" ");
-                    for (String aa : splitread) {
-                        result.add(aa);
+                ArrayList<String> lines = new ArrayList<String>();
+                String readline;
+
+                while ((readline = buffer.readLine()) != null) {
+                    lines.add(readline);
+                }
+
+                /// Read Relationships
+                int index = 0;
+                while (!("rrr".equals(lines.get(index)))) {
+                    relationships.add(lines.get(index));
+                    index++;
+                }
+                index++;
+
+                /// Read Names
+                while (!("nnn".equals(lines.get(index)))) {
+                    names.add(lines.get(index));
+                    index++;
+                }
+
+                index++;
+                
+                /// Read Pictures' Links
+                while (!("ppp".equals(lines.get(index)))) {
+                    pictures.add(lines.get(index));
+                    index++;
+                }
+                index++;
+                
+                /// Save to Graphs
+                ///index = 0;
+
+                while (index < lines.size()) {
+                    String line = lines.get(index);
+
+                    if (line.charAt(0) != 't') {
+
+                    } else /// line[0] == 't'
+                    {
+                        ChildGraph childGraph = new ChildGraph();
+                        childGraph.t = line;
+                        index++;
+
+                        while ((index < lines.size()) && (lines.get(index).charAt(0) != 't')) {
+                            if (lines.get(index).charAt(0) == 'v') {
+                                childGraph.Points.add(lines.get(index));
+                            }
+
+                            if (lines.get(index).charAt(0) == 'e') {
+                                childGraph.Vectors.add(lines.get(index));
+                            }
+
+                            index++;
+                        }
+
+                        if (!Graphs.contains(childGraph)) {
+                            Graphs.add(childGraph);
+                        }
+
+                        index--;
                     }
 
-                    if (result.isEmpty()) {
+                    index++;
+                }
 
-                    } else if (result.get(0).equals("t")) {
+                /// Show graphs
+                if (Graphs.size() >= 1) {
+                    for (ChildGraph Graph : Graphs) {
+                        for (String Point : Graph.Points) {
+                            result.clear();
+                            String[] splitread = Point.split(" ");
+                            for (String aa : splitread) {
+                                result.add(aa);
+                            }
 
-                    } else if (result.get(0).equals("v") && result.size() >= 3) {
-                        int id = Integer.parseInt(result.get(1));
-                        int label = Integer.parseInt(result.get(2));
-                        diem.add(id);
-                        g2d.VeDiem(luudiem, id, label);
-                        //this.get(id).label = Integer.parseInt(result.get(2));
-                    } else if (result.get(0).equals("e") && result.size() >= 4) {
-                        int from = Integer.parseInt(result.get(1));
-                        //long from = Long.parseLong(result.get(1));
-                        int to = Integer.parseInt(result.get(2));
-                        int elabel = Integer.parseInt(result.get(3));
-                        g2d.VeCanh(luudiem[from], luudiem[to], elabel + "");
+                            int id = Integer.parseInt(result.get(1));
+                            int label = Integer.parseInt(result.get(2));
+                            diem.add(id);
+                            ///g2d.VeDiem(luudiem, id, label);
+                            g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
+                        }
+
+                        for (String Vector : Graph.Vectors) {
+                            result.clear();
+                            String[] splitread = Vector.split(" ");
+                            for (String aa : splitread) {
+                                result.add(aa);
+                            }
+
+                            int from = Integer.parseInt(result.get(1));
+                            int to = Integer.parseInt(result.get(2));
+                            int elabel = Integer.parseInt(result.get(3));
+                            String strlabel = relationships.get(elabel - 1);
+                            g2d.VeCanh(luudiem[from], luudiem[to], strlabel);
+
+                        }
                     }
+
                 }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -265,7 +338,7 @@ public class ChildResultFrame extends javax.swing.JFrame {
 
     private void btnSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSingleActionPerformed
         // TODO add your handling code here:
-        SingleGraphFrame frmSingleGraph = new SingleGraphFrame(file); 
+        SingleGraphFrame frmSingleGraph = new SingleGraphFrame(file);
         frmSingleGraph.show();
     }//GEN-LAST:event_btnSingleActionPerformed
 

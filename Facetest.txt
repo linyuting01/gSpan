@@ -1,0 +1,60 @@
+﻿Bạn bè
+Người thân
+UNETI
+rrr
+Lê Tuấn Đạt
+Lương Thị Thảo Hiếu
+Đào Thị Phương Anh
+Phạm Anh Tuấn
+Trần Thị Lộc
+Nguyễn Minh Châu
+Phạm Thị Anh Thư
+nnn
+dat.png
+hieu.png
+anh.png
+tuan.png
+loc.png
+chau.png
+thu.png
+ppp
+t # 0
+v 0 1
+v 1 2
+v 2 2
+v 3 1
+v 4 2
+v 5 1
+v 6 2
+e 0 1 1
+e 0 2 1
+e 0 3 1
+e 0 4 1
+e 0 5 1
+e 0 4 2
+e 0 1 3
+e 0 2 3
+e 0 5 3
+e 2 0 1
+e 2 1 1
+e 2 5 1
+e 1 0 1
+e 1 2 1
+e 1 5 1
+e 3 0 1
+e 3 6 1
+e 1 0 3
+e 2 0 3
+e 1 2 3
+e 1 5 3
+e 2 1 3
+e 2 5 3
+e 4 0 1
+e 4 0 2
+e 5 0 1
+e 5 1 1
+e 5 2 1
+e 5 0 3
+e 5 1 3
+e 5 2 3
+e 6 3 1

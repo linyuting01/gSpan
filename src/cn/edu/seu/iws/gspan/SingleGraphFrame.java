@@ -27,6 +27,9 @@ public class SingleGraphFrame extends javax.swing.JFrame {
     private File myfile;
     private ArrayList<ChildGraph> Graphs;
     private Integer indexGraphs;
+    private ArrayList<String> relationships;
+    private ArrayList<String> names;
+    private ArrayList<String> pictures;
 
     /**
      * Creates new form SingleGraphFrame
@@ -40,6 +43,9 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         myfile = file;
         Graphs = new ArrayList<ChildGraph>();
         indexGraphs = -1;
+        relationships = new ArrayList<String>();
+        names = new ArrayList<String>();
+        pictures = new ArrayList<String>();
     }
 
     /**
@@ -140,7 +146,7 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         /// Show first graph
         indexGraphs++;
-        
+
         if (indexGraphs == Graphs.size()) {
             indexGraphs = 0;
             JOptionPane.showMessageDialog(null, "Trở lại Đồ thị đầu tiên", "Mở đồ thị", JOptionPane.INFORMATION_MESSAGE);
@@ -175,7 +181,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                 int id = Integer.parseInt(result.get(1));
                 int label = Integer.parseInt(result.get(2));
                 diem.add(id);
-                g2d.VeDiem(luudiem, id, label);
+                ///g2d.VeDiem(luudiem, id, label);
+                g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
             }
 
             for (String Vector : Graphs.get(indexGraphs).Vectors) {
@@ -188,7 +195,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                 int from = Integer.parseInt(result.get(1));
                 int to = Integer.parseInt(result.get(2));
                 int elabel = Integer.parseInt(result.get(3));
-                g2d.VeCanh(luudiem[from], luudiem[to], elabel + "");
+                String strlabel = relationships.get(elabel - 1);
+                g2d.VeCanh(luudiem[from], luudiem[to], strlabel);
             }
         }
     }//GEN-LAST:event_btnNextActionPerformed
@@ -208,8 +216,31 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                     lines.add(readline);
                 }
 
-                /// Save to Graphs
+                /// Read Relationships
                 int index = 0;
+                while (!("rrr".equals(lines.get(index)))) {
+                    relationships.add(lines.get(index));
+                    index++;
+                }
+                index++;
+
+                /// Read Names
+                while (!("nnn".equals(lines.get(index)))) {
+                    names.add(lines.get(index));
+                    index++;
+                }
+
+                index++;
+
+                /// Read Pictures' Links
+                while (!("ppp".equals(lines.get(index)))) {
+                    pictures.add(lines.get(index));
+                    index++;
+                }
+                index++;
+
+                /// Save to Graphs
+                ///index = 0;
 
                 while (index < lines.size()) {
                     String line = lines.get(index);
@@ -274,7 +305,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                         int id = Integer.parseInt(result.get(1));
                         int label = Integer.parseInt(result.get(2));
                         diem.add(id);
-                        g2d.VeDiem(luudiem, id, label);
+                        ///g2d.VeDiem(luudiem, id, label);
+                        g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
                     }
 
                     for (String Vector : Graphs.get(0).Vectors) {
@@ -287,7 +319,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                         int from = Integer.parseInt(result.get(1));
                         int to = Integer.parseInt(result.get(2));
                         int elabel = Integer.parseInt(result.get(3));
-                        g2d.VeCanh(luudiem[from], luudiem[to], elabel + "");
+                        String strlabel = relationships.get(elabel - 1);
+                        g2d.VeCanh(luudiem[from], luudiem[to], strlabel);
                     }
                 }
 
