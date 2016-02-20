@@ -8,6 +8,7 @@ package cn.edu.seu.iws.gspan;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -159,15 +160,18 @@ public class LtdGraph {
         Edges = new ArrayList<LtdGraphEdge>();
 
         for (String Point : graph.Points) {
-            int id = Integer.parseInt(String.valueOf(Point.charAt(2)));
-            int label = Integer.parseInt(String.valueOf(Point.charAt(4)));
+            String[] PointSplit = Point.split("\\s+");
+            
+            int id = Integer.parseInt(PointSplit[1]);
+            int label = Integer.parseInt(PointSplit[2]);
             this.Vertexs.add(new LtdGraphVertex(id, label));
         }
 
         for (String Vector : graph.Vectors) {
-            int from = Integer.parseInt(String.valueOf(Vector.charAt(2)));
-            int to = Integer.parseInt(String.valueOf(Vector.charAt(4)));
-            int label = Integer.parseInt(String.valueOf(Vector.charAt(6)));
+            String[] VectorSplit = Vector.split("\\s+");
+            int from = Integer.parseInt(VectorSplit[1]);
+            int to = Integer.parseInt(VectorSplit[2]);
+            int label = Integer.parseInt(VectorSplit[3]);
             this.Edges.add(new LtdGraphEdge(from, to, label));
         }
     }
@@ -186,6 +190,17 @@ public class LtdGraph {
 
     public void sort() {
         ///Vertexs.sort(null);
+        for (int i = 0; i < Vertexs.size()-1; i++) {
+            for (int j = i+1; j < Vertexs.size(); j++) {
+                if (Vertexs.get(i).id > Vertexs.get(j).id) {
+                    int temp = Vertexs.get(i).id;
+                    Vertexs.get(i).id = Vertexs.get(j).id;
+                    Vertexs.get(j).id = temp;
+                }
+                
+            }
+            
+        }
         ///Edges.sort(null);
     }
 
@@ -208,6 +223,25 @@ public class LtdGraph {
         this.Edges = temp;
     }
 
+    public void cleanshort(int top) {
+        this.clean();
+        if (this.Vertexs.size() > top) {
+            while (this.Vertexs.size() > top) {
+                this.Vertexs.remove(this.Vertexs.size()-1);
+            }
+        
+            int i = 0;
+            while (i < this.Edges.size()) {
+                if ((Edges.get(i).from >= (this.Vertexs.size()-1)) || (Edges.get(i).to >= (this.Vertexs.size()-1))){
+                    this.Edges.remove(i);
+                } else {
+                    i++;
+                }
+            }
+        }
+        
+    }
+    
     public ArrayList<LtdGraphEdgeMatrix> getEdgeMatrix() {
         ArrayList<LtdGraphEdgeMatrix> EdgeMatrixs = new ArrayList<LtdGraphEdgeMatrix>();
 

@@ -64,8 +64,8 @@ public class ChildResultFrame extends javax.swing.JFrame {
         List<Integer> diem;
         diem = new ArrayList<Integer>();
         Point[] luudiem;
-        luudiem = new Point[21];
-        for (int i = 0; i < 21; i++) {
+        luudiem = new Point[50];
+        for (int i = 0; i < luudiem.length; i++) {
             luudiem[i] = new Point(0, 0);
         }
 
@@ -86,7 +86,7 @@ public class ChildResultFrame extends javax.swing.JFrame {
                     int id = Integer.parseInt(result.get(1));
                     int label = Integer.parseInt(result.get(2));
                     diem.add(id);
-                    ///g2d.VeDiem(luudiem, id, label);
+
                     g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
                 }
 
@@ -209,8 +209,8 @@ public class ChildResultFrame extends javax.swing.JFrame {
 
             File readfile = new File(openFile.getSelectedFile().getPath());
             Point[] luudiem;
-            luudiem = new Point[21];
-            for (int i = 0; i < 21; i++) {
+            luudiem = new Point[50];
+            for (int i = 0; i < luudiem.length; i++) {
                 luudiem[i] = new Point(0, 0);
             }
             Graphics g;
@@ -302,7 +302,7 @@ public class ChildResultFrame extends javax.swing.JFrame {
                             int id = Integer.parseInt(result.get(1));
                             int label = Integer.parseInt(result.get(2));
                             diem.add(id);
-                            ///g2d.VeDiem(luudiem, id, label);
+                            
                             g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
                         }
 

@@ -34,7 +34,7 @@ public class MyGraphics {
         rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
         g2d.setRenderingHints(rh);
-        
+
     }
 
     public static double KhoangCach(Point a, Point b) {
@@ -58,12 +58,9 @@ public class MyGraphics {
         }
         BufferedImage img = null;
         try {
-            if ((new File("images/" + picture).exists()) == false)
-            {
+            if ((new File("images/" + picture).exists()) == false) {
                 img = ImageIO.read(new File("images/user_face.png"));
-            }
-            else
-            {
+            } else {
                 img = ImageIO.read(new File("images/" + picture));
             }
         } catch (IOException e) {
@@ -75,9 +72,9 @@ public class MyGraphics {
         g2d.setFont(new Font(null, Font.BOLD, 15));
         g2d.drawString(name + "", temp.x, temp.y);
 
-        GradientPaint grp = new GradientPaint(temp.x, temp.y, Color.blue,temp.x, temp.y, Color.blue);
+        GradientPaint grp = new GradientPaint(temp.x, temp.y, Color.blue, temp.x, temp.y, Color.blue);
         g2d.setPaint(grp);
-        
+
         g2d.fillOval(temp.x, temp.y, 5, 5);
         luudiem[index] = temp;
     }
@@ -89,5 +86,20 @@ public class MyGraphics {
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font(null, Font.BOLD, 12));
         g2d.drawString(label, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+    }
+
+    void DrawEdge(int from, int to, Point p1, Point p2, String label) {
+        g2d.setColor(Color.red);
+        g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
+
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font(null, Font.BOLD, 12));
+        g2d.drawString(label + " " + from + "->" + to, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+    }
+
+    void DrawWarning() {
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font(null, Font.BOLD, 24));
+        g2d.drawString("ĐỒ THỊ QUÁ LỚN ĐỂ HIỂN THỊ", 220, 200);
     }
 }

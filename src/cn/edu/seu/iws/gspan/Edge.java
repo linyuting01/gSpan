@@ -5,7 +5,7 @@ public class Edge {
 	int from;
 	int to;
 	int elabel;
-	long id;		//±ßµÄid
+	long id;		
 	int dir;
 	
 	Edge()

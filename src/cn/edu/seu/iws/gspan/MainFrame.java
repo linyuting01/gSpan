@@ -56,8 +56,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void LoadResult() {
         /// Show graphs         
         List<Integer> diem = new ArrayList<Integer>();
-        Point[] luudiem = new Point[21];
-        for (int i = 0; i < 21; i++) {
+        Point[] luudiem = new Point[50];
+        for (int i = 0; i < luudiem.length; i++) {
             luudiem[i] = new Point(0, 0);
         }
 
@@ -68,21 +68,30 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (LtdGraphs.size() >= 1) {
             for (LtdGraph graph : LtdGraphs) {
-                for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
-                    diem.add(Vertex.id);
-                    g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
-                }
+//                LtdGraph shortgraph = new LtdGraph(graph);
+//                shortgraph.cleanshort(10);
 
-                for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
-                    String strlabel = "";
-                    for (int label : edgeMatrix.labels) {
-                        strlabel += ", " + relationships.get(label - 1);
+                if (graph.Vertexs.size() < 15) {
+                    for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
+                        diem.add(Vertex.id);
+                        g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
                     }
-                    strlabel = strlabel.substring(2, strlabel.length());
-                    g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+
+                    for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
+                        String strlabel = "";
+                        for (int label : edgeMatrix.labels) {
+                            strlabel += ", " + relationships.get(label - 1);
+                        }
+                        strlabel = strlabel.substring(2, strlabel.length());
+                        g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+                    }
+                } else {
+                    g2d.DrawWarning();
                 }
             }
         }
+        ///JOptionPane.showMessageDialog(null, "Hiển thị đồ thị đầu vào thành công!", "Đồ thị đầu vào", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**
@@ -107,8 +116,15 @@ public class MainFrame extends javax.swing.JFrame {
         btnReload = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        txtEdges = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtVertexs = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtRelationships = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         btnOpen.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnOpen.setText("Open");
@@ -128,7 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 426, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -171,14 +187,50 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel6.setText("Số lượt quan hệ:");
+
+        txtEdges.setEditable(false);
+        txtEdges.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtEdges.setForeground(new java.awt.Color(153, 0, 0));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel7.setText("Số đỉnh:");
+
+        txtVertexs.setEditable(false);
+        txtVertexs.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtVertexs.setForeground(new java.awt.Color(153, 0, 0));
+        txtVertexs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel8.setText("Số loại quan hệ:");
+
+        txtRelationships.setEditable(false);
+        txtRelationships.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtRelationships.setForeground(new java.awt.Color(153, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEdges, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                            .addComponent(txtVertexs))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -193,47 +245,55 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnHandling))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnOpen)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
-                                .addComponent(btnReload))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSeparator2))))
-                .addContainerGap())
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnOpen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReload))
+                    .addComponent(jSeparator2)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOpen)
                     .addComponent(btnReload))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtMinSup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnHandling)
-                    .addComponent(jLabel2)
-                    .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtMinSup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHandling)
+                            .addComponent(jLabel2)
+                            .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtVertexs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtEdges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -242,6 +302,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         Graphs.clear();
         LtdGraphs.clear();
+        relationships.clear();
+        names.clear();
+        pictures.clear();
+
         jPanel1.repaint();
 
         JFileChooser openFile = new JFileChooser();
@@ -257,8 +321,8 @@ public class MainFrame extends javax.swing.JFrame {
             File readfile = new File(openFile.getSelectedFile().getPath());
 
             List<Integer> diem = new ArrayList<Integer>();
-            Point[] luudiem = new Point[21];
-            for (int i = 0; i < 21; i++) {
+            Point[] luudiem = new Point[50];
+            for (int i = 0; i < luudiem.length; i++) {
                 luudiem[i] = new Point(0, 0);
             }
 
@@ -284,14 +348,15 @@ public class MainFrame extends javax.swing.JFrame {
                     index++;
                 }
                 index++;
+                txtRelationships.setText("" + relationships.size());
 
                 /// Read Names
                 while (!("nnn".equals(lines.get(index)))) {
                     names.add(lines.get(index));
                     index++;
                 }
-
                 index++;
+                txtVertexs.setText("" + names.size());
 
                 /// Read Pictures' Links
                 while (!("ppp".equals(lines.get(index)))) {
@@ -347,27 +412,36 @@ public class MainFrame extends javax.swing.JFrame {
                     LtdGraphs.add(new LtdGraph(graph));
                 }
 
-                System.out.println("Edge Matrix: ");
                 LtdGraphs.get(0).showEdgeMatrix();
 
                 /// Show graphs
                 if (LtdGraphs.size() >= 1) {
                     for (LtdGraph graph : LtdGraphs) {
-                        for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
-                            diem.add(Vertex.id);
-                            g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
+                        txtEdges.setText("" + graph.Edges.size());
+
+//                        LtdGraph shortgraph = new LtdGraph(graph);
+//                        shortgraph.cleanshort(10);
+                        if (graph.Vertexs.size() < 15) {
+                            for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
+                                diem.add(Vertex.id);
+                                g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
+                            }
+
+                            for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
+                                String strlabel = "";
+                                for (int label : edgeMatrix.labels) {
+                                    strlabel += ", " + relationships.get(label - 1);
+                                }
+                                strlabel = strlabel.substring(2, strlabel.length());
+                                g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+                            }
+                        } else {
+                            g2d.DrawWarning();
                         }
 
-                        for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
-                            String strlabel = "";
-                            for (int label : edgeMatrix.labels) {
-                                strlabel += ", " + relationships.get(label - 1);
-                            }
-                            strlabel = strlabel.substring(2, strlabel.length());
-                            g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
-                        }
                     }
                 }
+                ///JOptionPane.showMessageDialog(null, "Hiển thị đồ thị đầu vào thành công!", "Đồ thị đầu vào", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -464,12 +538,18 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField txtEdges;
     private javax.swing.JTextField txtFile;
     private javax.swing.JTextField txtFileOut;
     private javax.swing.JTextField txtMinSup;
+    private javax.swing.JTextField txtRelationships;
+    private javax.swing.JTextField txtVertexs;
     // End of variables declaration//GEN-END:variables
 
     private void CleanFile(File writefile) {

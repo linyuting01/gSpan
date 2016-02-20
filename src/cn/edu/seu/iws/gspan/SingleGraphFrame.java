@@ -166,8 +166,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
             List<Integer> diem;
             diem = new ArrayList<Integer>();
             Point[] luudiem;
-            luudiem = new Point[21];
-            for (int i = 0; i < 21; i++) {
+            luudiem = new Point[50];
+            for (int i = 0; i < luudiem.length; i++) {
                 luudiem[i] = new Point(0, 0);
             }
 
@@ -290,8 +290,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                     List<Integer> diem;
                     diem = new ArrayList<Integer>();
                     Point[] luudiem;
-                    luudiem = new Point[21];
-                    for (int i = 0; i < 21; i++) {
+                    luudiem = new Point[50];
+                    for (int i = 0; i < luudiem.length; i++) {
                         luudiem[i] = new Point(0, 0);
                     }
 

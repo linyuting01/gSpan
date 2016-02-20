@@ -5,13 +5,13 @@ import java.util.*;
 
 
 //finished
-public class Graph extends HashMap<Long,Vertex> //一个图包含了很多顶点
+public class Graph extends HashMap<Long,Vertex> 
 {
 	private static final long serialVersionUID = 1L;
 	private long edge_size_;
-	public boolean directed;//是否是有向图
+	public boolean directed;
 	
-	//顶点迭代器
+
 	
 	Graph()
 	{
@@ -47,7 +47,7 @@ public class Graph extends HashMap<Long,Vertex> //一个图包含了很多顶点
 			{
 				Edge e = it.next();
 				
-				//将int转换为string
+		
 				//String from = new Integer(from).toString();
 				//String to = new Integer(e.to).toString();
 				//String elabel = new Integer(e.elabel).toString();
@@ -122,7 +122,7 @@ public class Graph extends HashMap<Long,Vertex> //一个图包含了很多顶点
 		ArrayList<String> result = new ArrayList<String>();
 		
 		String readgraph;		
-		this.clear();//重新读入构造图
+		this.clear();
 		while((readgraph = read.readLine()) != null)
 		{
 			result.clear();
