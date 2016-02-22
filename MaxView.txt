@@ -1,0 +1,56 @@
+﻿Bạn bè
+Họ hàng
+Công tác ở Uneti
+Thích nghe nhạc
+Chăm sóc sức khỏe ở Viện Dệt May
+rrr
+Lê Tuấn Đạt
+Nguyễn Châu
+Chen Yu Xin
+Lương Thanh Nga
+Hoa Lý
+Trần Quốc Hoàn
+Lộc Đồng Hồ
+Luong Thao Hieu
+Anh Phuong Dao
+Cảnh Nguyễn Trọng
+Lê Mạnh Thắng
+Điền Hà
+Duc Bo
+Vu Thu Uyen
+nnn
+letuandat.png
+nguyenchau.png
+chenyuxin.png
+luongthanhnga.png
+hoaly.png
+tranquochoan.png
+locdongho.png
+luongthaohieu.png
+anhphuongdao.png
+canhnguyentrong.png
+lemanhthang.png
+dienha.png
+ducbo.png
+vuthuuyen.png
+ppp
+t # 0
+v 0 1
+v 1 1
+v 2 1
+v 3 2
+v 4 2
+v 5 1
+v 6 2
+v 7 2
+v 8 2
+v 9 1
+v 10 1
+v 11 2
+v 12 2
+v 13 2
+e 0 1 1
+e 0 2 2
+e 0 3 3
+e 0 4 4
+e 0 5 5

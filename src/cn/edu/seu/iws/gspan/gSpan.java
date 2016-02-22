@@ -614,8 +614,10 @@ public class gSpan {
     }
 
     void run_intern() throws IOException {
+        
         if (maxpat_min <= 1) {
             for (long id = 0; id < TRANS.size(); ++id) {
+                ///JOptionPane.showMessageDialog(null, TRANS.get(id).size(), "TRANS", 0);
                 for (long nid = 0; nid < TRANS.get(id).size(); ++nid) {
                     /*if(singleVertex.get(id).get(TRANS.get(id).get(nid).label) == 0)
 					{

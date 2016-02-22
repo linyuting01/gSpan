@@ -122,8 +122,10 @@ public class MainFrame extends javax.swing.JFrame {
         txtVertexs = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtRelationships = new javax.swing.JTextField();
+        btnReload1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Khai phá đồ thị");
         setResizable(false);
 
         btnOpen.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -180,7 +182,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setText("%");
 
         btnReload.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnReload.setText("Reload");
+        btnReload.setText("Auto View");
         btnReload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReloadActionPerformed(evt);
@@ -208,6 +210,14 @@ public class MainFrame extends javax.swing.JFrame {
         txtRelationships.setEditable(false);
         txtRelationships.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtRelationships.setForeground(new java.awt.Color(153, 0, 0));
+
+        btnReload1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnReload1.setText("Best View");
+        btnReload1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReload1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,6 +261,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnOpen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReload1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReload))
                     .addComponent(jSeparator2)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -264,7 +276,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOpen)
-                    .addComponent(btnReload))
+                    .addComponent(btnReload)
+                    .addComponent(btnReload1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -422,9 +435,12 @@ public class MainFrame extends javax.swing.JFrame {
 //                        LtdGraph shortgraph = new LtdGraph(graph);
 //                        shortgraph.cleanshort(10);
                         if (graph.Vertexs.size() < 15) {
+                            int indexVertex = 0;
                             for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
                                 diem.add(Vertex.id);
-                                g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
+                                ///g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
+                                g2d.DrawPointX(indexVertex, names.get(Vertex.id), pictures.get(Vertex.id));
+                                indexVertex++;
                             }
 
                             for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
@@ -433,7 +449,8 @@ public class MainFrame extends javax.swing.JFrame {
                                     strlabel += ", " + relationships.get(label - 1);
                                 }
                                 strlabel = strlabel.substring(2, strlabel.length());
-                                g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+                                ///g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+                                g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
                             }
                         } else {
                             g2d.DrawWarning();
@@ -442,7 +459,7 @@ public class MainFrame extends javax.swing.JFrame {
                     }
                 }
                 ///JOptionPane.showMessageDialog(null, "Hiển thị đồ thị đầu vào thành công!", "Đồ thị đầu vào", JOptionPane.INFORMATION_MESSAGE);
-
+                txtFileOut.setText(txtFile.getText() + "_out.txt");
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -495,6 +512,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReloadActionPerformed
 
+    private void btnReload1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReload1ActionPerformed
+        // TODO add your handling code here:
+        LoadBestView();
+    }//GEN-LAST:event_btnReload1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -534,6 +556,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnHandling;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnReload;
+    private javax.swing.JButton btnReload1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -645,6 +668,50 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("Writen!");
         } catch (Exception e) {
 
+        }
+    }
+
+    private void LoadBestView() {
+        List<Integer> diem = new ArrayList<Integer>();
+        Point[] luudiem = new Point[50];
+        for (int i = 0; i < luudiem.length; i++) {
+            luudiem[i] = new Point(0, 0);
+        }
+
+        Graphics g;
+        g = jPanel1.getGraphics();
+        g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getWidth());
+        MyGraphics g2d = new MyGraphics(g);
+
+        if (LtdGraphs.size() >= 1) {
+            for (LtdGraph graph : LtdGraphs) {
+                txtEdges.setText("" + graph.Edges.size());
+
+//                        LtdGraph shortgraph = new LtdGraph(graph);
+//                        shortgraph.cleanshort(10);
+                if (graph.Vertexs.size() < 15) {
+                    int indexVertex = 0;
+                    for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
+                        diem.add(Vertex.id);
+                        ///g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
+                        g2d.DrawPointX(indexVertex, names.get(Vertex.id), pictures.get(Vertex.id));
+                        indexVertex++;
+                    }
+
+                    for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
+                        String strlabel = "";
+                        for (int label : edgeMatrix.labels) {
+                            strlabel += ", " + relationships.get(label - 1);
+                        }
+                        strlabel = strlabel.substring(2, strlabel.length());
+                        ///g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+                        g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
+                    }
+                } else {
+                    g2d.DrawWarning();
+                }
+
+            }
         }
     }
 }

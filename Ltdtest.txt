@@ -12,15 +12,15 @@ Trần Thị Lộc
 Lương Thị Thảo Hiếu
 Đào Thị Phương Anh
 nnn
-dat.png
-chau.png
-tan.png
-phuong.png
-thu.png
-tuan.png
-loc.png
-hieu.png
-anh.png
+letuandat.png
+nguyenchau.png
+chenyuxin.png
+lilliannguyen.png
+thuthuanh.png
+phamanhtuan.png
+locdongho.png
+luongthaohieu.png
+anhphuongdao.png
 ppp
 t # 0
 v 0 1

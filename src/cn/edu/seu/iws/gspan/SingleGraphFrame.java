@@ -63,9 +63,16 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         lblIndex = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        btnNext1 = new javax.swing.JButton();
+        btnNext2 = new javax.swing.JButton();
+        btnNext3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtIndex = new javax.swing.JTextField();
+        btnNext4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Đồ thị riêng");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -78,15 +85,16 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 426, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         btnNext.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnNext.setText("Next graph");
+        btnNext.setText("Next");
+        btnNext.setActionCommand("Next");
         btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextActionPerformed(evt);
@@ -104,6 +112,40 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         lblTotal.setForeground(new java.awt.Color(204, 0, 0));
         lblTotal.setText("/0");
 
+        btnNext1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnNext1.setText("Next 10");
+        btnNext1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNext1ActionPerformed(evt);
+            }
+        });
+
+        btnNext2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnNext2.setText("Next 50");
+        btnNext2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNext2ActionPerformed(evt);
+            }
+        });
+
+        btnNext3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnNext3.setText("Next 100");
+        btnNext3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNext3ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Graph: ");
+
+        btnNext4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnNext4.setText("Move to");
+        btnNext4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNext4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,16 +153,30 @@ public class SingleGraphFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNext)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnNext1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnNext2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnNext3)
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNext4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(lblIndex)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal))
-                    .addComponent(jSeparator1))
+                    .addComponent(jSeparator1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -131,12 +187,18 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                     .addComponent(btnNext)
                     .addComponent(jLabel1)
                     .addComponent(lblIndex)
-                    .addComponent(lblTotal))
+                    .addComponent(lblTotal)
+                    .addComponent(btnNext1)
+                    .addComponent(btnNext2)
+                    .addComponent(btnNext3)
+                    .addComponent(jLabel2)
+                    .addComponent(txtIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNext4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap())
         );
 
         pack();
@@ -182,22 +244,34 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                 int label = Integer.parseInt(result.get(2));
                 diem.add(id);
                 ///g2d.VeDiem(luudiem, id, label);
-                g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
+                ///g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
+                g2d.DrawPointX(id, names.get(id), pictures.get(id));
             }
 
-            for (String Vector : Graphs.get(indexGraphs).Vectors) {
-                result.clear();
-                String[] splitread = Vector.split(" ");
-                for (String aa : splitread) {
-                    result.add(aa);
+//            for (String Vector : Graphs.get(indexGraphs).Vectors) {
+//                result.clear();
+//                String[] splitread = Vector.split(" ");
+//                for (String aa : splitread) {
+//                    result.add(aa);
+//                }
+//
+//                int from = Integer.parseInt(result.get(1));
+//                int to = Integer.parseInt(result.get(2));
+//                int elabel = Integer.parseInt(result.get(3));
+//                String strlabel = relationships.get(elabel - 1);
+//                ///g2d.VeCanh(luudiem[from], luudiem[to], strlabel);
+//                g2d.DrawEdgeXY(from, to, strlabel);
+//            }
+            for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graphs.get(indexGraphs)).getEdgeMatrix()) {
+                String strlabel = "";
+                for (int label : edgeMatrix.labels) {
+                    strlabel += ", " + relationships.get(label - 1);
                 }
-
-                int from = Integer.parseInt(result.get(1));
-                int to = Integer.parseInt(result.get(2));
-                int elabel = Integer.parseInt(result.get(3));
-                String strlabel = relationships.get(elabel - 1);
-                g2d.VeCanh(luudiem[from], luudiem[to], strlabel);
+                strlabel = strlabel.substring(2, strlabel.length());
+                ///g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+                g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
             }
+
         }
     }//GEN-LAST:event_btnNextActionPerformed
 
@@ -241,7 +315,6 @@ public class SingleGraphFrame extends javax.swing.JFrame {
 
                 /// Save to Graphs
                 ///index = 0;
-
                 while (index < lines.size()) {
                     String line = lines.get(index);
 
@@ -306,7 +379,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                         int label = Integer.parseInt(result.get(2));
                         diem.add(id);
                         ///g2d.VeDiem(luudiem, id, label);
-                        g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
+                        ///g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
+                        g2d.DrawPointX(id, names.get(id), pictures.get(id));
                     }
 
                     for (String Vector : Graphs.get(0).Vectors) {
@@ -320,7 +394,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                         int to = Integer.parseInt(result.get(2));
                         int elabel = Integer.parseInt(result.get(3));
                         String strlabel = relationships.get(elabel - 1);
-                        g2d.VeCanh(luudiem[from], luudiem[to], strlabel);
+                        ///g2d.VeCanh(luudiem[from], luudiem[to], strlabel);
+                        g2d.DrawEdgeXY(from, to, strlabel);
                     }
                 }
 
@@ -332,6 +407,89 @@ public class SingleGraphFrame extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void ViewGraph() {
+        if (indexGraphs >= Graphs.size()) {
+            indexGraphs = 0;
+            JOptionPane.showMessageDialog(null, "Trở lại Đồ thị đầu tiên", "Mở đồ thị", JOptionPane.INFORMATION_MESSAGE);
+            lblIndex.setText("" + (indexGraphs + 1));
+        }
+
+        if (indexGraphs < Graphs.size()) {
+            lblIndex.setText("" + (indexGraphs + 1));
+            Graphics g;
+            g = jPanel1.getGraphics();
+            g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+            jPanel1.setOpaque(true);
+            MyGraphics g2d = new MyGraphics(g);
+
+            ArrayList<String> result = new ArrayList<String>();
+
+            List<Integer> diem;
+            diem = new ArrayList<Integer>();
+            Point[] luudiem;
+            luudiem = new Point[50];
+            for (int i = 0; i < luudiem.length; i++) {
+                luudiem[i] = new Point(0, 0);
+            }
+
+            for (String Point : Graphs.get(indexGraphs).Points) {
+                result.clear();
+                String[] splitread = Point.split(" ");
+                for (String aa : splitread) {
+                    result.add(aa);
+                }
+
+                int id = Integer.parseInt(result.get(1));
+                int label = Integer.parseInt(result.get(2));
+                diem.add(id);
+                ///g2d.VeDiem(luudiem, id, label);
+                ///g2d.DrawPoint(luudiem, id, names.get(id), pictures.get(id));
+                g2d.DrawPointX(id, names.get(id), pictures.get(id));
+            }
+
+            for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graphs.get(indexGraphs)).getEdgeMatrix()) {
+                String strlabel = "";
+                for (int label : edgeMatrix.labels) {
+                    strlabel += ", " + relationships.get(label - 1);
+                }
+                strlabel = strlabel.substring(2, strlabel.length());
+                ///g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+                g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
+            }
+
+        }
+    }
+
+    private void AddIndex(int x) {
+        for (int i = 0; i < x; i++) {
+            indexGraphs++;
+
+        }
+    }
+    private void btnNext1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext1ActionPerformed
+        // TODO add your handling code here:
+        AddIndex(10);
+        ViewGraph();
+    }//GEN-LAST:event_btnNext1ActionPerformed
+
+    private void btnNext2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext2ActionPerformed
+        // TODO add your handling code here:
+        AddIndex(50);
+        ViewGraph();
+    }//GEN-LAST:event_btnNext2ActionPerformed
+
+    private void btnNext3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext3ActionPerformed
+        // TODO add your handling code here:
+        AddIndex(100);
+        ViewGraph();
+    }//GEN-LAST:event_btnNext3ActionPerformed
+
+    private void btnNext4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext4ActionPerformed
+        // TODO add your handling code here:
+        indexGraphs = Integer.parseInt(txtIndex.getText())-1;
+        ViewGraph();
+    }//GEN-LAST:event_btnNext4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -370,10 +528,16 @@ public class SingleGraphFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnNext1;
+    private javax.swing.JButton btnNext2;
+    private javax.swing.JButton btnNext3;
+    private javax.swing.JButton btnNext4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblIndex;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JTextField txtIndex;
     // End of variables declaration//GEN-END:variables
 }
