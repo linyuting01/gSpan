@@ -40,6 +40,7 @@ public class MyGraphics {
     }
 
     Position[] Positions = new Position[14];
+    Position[] Positions100 = new Position[100];
 
     public MyGraphics(Graphics g) {
         g2d = (Graphics2D) g;
@@ -64,6 +65,25 @@ public class MyGraphics {
         Positions[12] = new Position(150, 410);
         Positions[13] = new Position(390, 60);
 
+        for (int i = 0; i < 5; i++) {
+            for (int j = 1; j <= 10; j++) {
+                int k = i * 10 + j - 1;
+                Positions100[k] = new Position(120 * (j - 1), 100 * i);
+            }
+        }
+
+        for (int i = 5; i < 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                int k = i * 10 + j - 1;
+                Positions100[k] = new Position(120 * (j - 1), 50 * (2*(i-4) - 1));
+                ///Positions100[k] = new Position(0, 0);
+            }
+        }
+        
+        for (Position Pos : Positions100) {
+            Pos.x += 40;
+            Pos.y += 40;
+        }
     }
 
     public static double KhoangCach(Point a, Point b) {
@@ -125,12 +145,37 @@ public class MyGraphics {
         g2d.drawImage(img, temp.x, temp.y, null);
 
         g2d.setFont(new Font(null, Font.BOLD, 15));
-        g2d.drawString(name + "", temp.x, temp.y);
+        g2d.drawString(name + "", temp.x-15, temp.y-5);
 
-        GradientPaint grp = new GradientPaint(temp.x, temp.y, Color.blue, temp.x, temp.y, Color.blue);
-        g2d.setPaint(grp);
+//        GradientPaint grp = new GradientPaint(temp.x, temp.y, Color.blue, temp.x, temp.y, Color.blue);
+//        g2d.setPaint(grp);
+//
+//        g2d.fillOval(temp.x, temp.y, 5, 5);
+    }
 
-        g2d.fillOval(temp.x, temp.y, 5, 5);
+    public void DrawPointX100(int index, String name, String picture) {
+        Point temp = new Point(Positions100[index].x, Positions100[index].y);
+
+        BufferedImage img = null;
+        try {
+            if ((new File("images/" + picture).exists()) == false) {
+                img = ImageIO.read(new File("images/user_face.png"));
+            } else {
+                img = ImageIO.read(new File("images/" + picture));
+            }
+        } catch (IOException e) {
+
+        }
+        g2d.setColor(Color.blue);
+        g2d.drawImage(img, temp.x, temp.y, null);
+
+        g2d.setFont(new Font(null, Font.BOLD, 15));
+        g2d.drawString(name + "", temp.x-15, temp.y-5);
+
+//        GradientPaint grp = new GradientPaint(temp.x-10, temp.y, Color.blue, temp.x-10, temp.y, Color.blue);
+//        g2d.setPaint(grp);
+//
+//        g2d.fillOval(temp.x-10, temp.y, 5, 5);
     }
 
     public void VeCanh(Point p1, Point p2, String label) {
@@ -154,11 +199,11 @@ public class MyGraphics {
     void DrawEdgeXY(int from, int to, String label) {
         Point p1 = new Point(Positions[from].x, Positions[from].y);
         Point p2 = new Point(Positions[to].x, Positions[to].y);
-        
+
         g2d.setColor(Color.red);
         ///g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
-        g2d.drawLine(p1.x+16, p1.y+16, p2.x+16, p2.y+16);
-        
+        g2d.drawLine(p1.x + 16, p1.y + 16, p2.x + 16, p2.y + 16);
+
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font(null, Font.BOLD, 12));
         ///AffineTransform saveAT = g2d.getTransform();
@@ -166,6 +211,18 @@ public class MyGraphics {
         ///g2d.drawString(label, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
         g2d.drawString(label, (p1.x + p2.x + 32) / 2, (p1.y + p2.y + 32) / 2);
         ///g2d.setTransform(saveAT);
+    }
+
+    void DrawEdgeXY100(int from, int to, String label) {
+        Point p1 = new Point(Positions100[from].x, Positions100[from].y);
+        Point p2 = new Point(Positions100[to].x, Positions100[to].y);
+
+        g2d.setColor(Color.red);
+        g2d.drawLine(p1.x + 16, p1.y + 16, p2.x + 16, p2.y + 16);
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font(null, Font.BOLD, 12));
+
+        g2d.drawString(label, (p1.x + p2.x + 32) / 2, (p1.y + p2.y + 32) / 2);
     }
 
     void DrawWarning() {

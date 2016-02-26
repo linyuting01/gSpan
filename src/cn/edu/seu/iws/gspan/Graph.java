@@ -11,8 +11,6 @@ public class Graph extends HashMap<Long,Vertex>
 	private long edge_size_;
 	public boolean directed;
 	
-
-	
 	Graph()
 	{
 		edge_size_ = 0;
@@ -46,7 +44,6 @@ public class Graph extends HashMap<Long,Vertex>
 			while(it.hasNext())
 			{
 				Edge e = it.next();
-				
 		
 				//String from = new Integer(from).toString();
 				//String to = new Integer(e.to).toString();

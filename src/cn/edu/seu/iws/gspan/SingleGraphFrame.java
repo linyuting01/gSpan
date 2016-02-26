@@ -94,7 +94,6 @@ public class SingleGraphFrame extends javax.swing.JFrame {
 
         btnNext.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnNext.setText("Next");
-        btnNext.setActionCommand("Next");
         btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextActionPerformed(evt);

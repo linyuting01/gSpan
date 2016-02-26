@@ -1,0 +1,76 @@
+﻿GGG 0
+Luong Thao Hieu
+Nguyễn Châu
+Lê Tuấn Đạt
+Phạm Anh Tuấn
+nnn
+luongthaohieu.png
+nguyenchau.png
+letuandat.png
+phamanhtuan.png
+ppp
+Bạn bè
+rrr
+v 0 2
+v 1 1
+v 2 1
+v 3 1
+e 0 1 1
+e 0 2 1
+e 2 3 1
+GGG 1
+Nguyễn Châu
+Lê Tuấn Đạt
+Lê Mạnh Thắng
+Lộc Đồng Hồ
+nnn
+nguyenchau.png
+letuandat.png
+lemanhthang.png
+locdongho.png
+ppp
+Họ hàng
+rrr
+v 0 1
+v 1 1
+v 2 1
+v 3 2
+e 1 3 1
+e 2 0 1
+GGG 2
+Luong Thao Hieu
+Anh Phương Đào
+Lê Mạnh Thắng
+nnn
+luongthaohieu.png
+anhphuongdao.png
+lemanhthang.png
+ppp
+Công tác tại UNETI
+rrr
+v 0 2
+v 1 2
+v 2 1
+e 0 1 1
+e 0 2 1
+GGG 3
+Luong Thao Hieu
+Nguyễn Châu
+Anh Phương Đào
+Phạm Anh Tuấn
+nnn
+luongthaohieu.png
+nguyenchau.png
+anhphuongdao.png
+phamanhtuan.png
+ppp
+Thích nghe nhạc
+Chăm sóc sức khỏe tại Viện Dệt may
+rrr
+v 0 2
+v 1 1
+v 2 2
+v 3 1
+e 0 1 2
+e 2 1 1
+e 1 3 1

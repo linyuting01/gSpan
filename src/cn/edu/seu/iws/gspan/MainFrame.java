@@ -5,6 +5,8 @@
  */
 package cn.edu.seu.iws.gspan;
 
+import cn.edu.seu.iws.gspan.LtdGraph2.LtdGraph2Edge;
+import cn.edu.seu.iws.gspan.LtdGraph2.LtdGraph2Vertex;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.BufferedReader;
@@ -36,9 +38,13 @@ public class MainFrame extends javax.swing.JFrame {
     private JFileChooser myFile;
     private ArrayList<ChildGraph> Graphs;
     private ArrayList<LtdGraph> LtdGraphs;
+
     private ArrayList<String> relationships;
     private ArrayList<String> names;
     private ArrayList<String> pictures;
+
+    private ArrayList<LtdGraph2> InputGraphs;
+    private LtdGraph2 Graph;
 
     /**
      * Creates new form MainFrame
@@ -51,6 +57,9 @@ public class MainFrame extends javax.swing.JFrame {
         relationships = new ArrayList<String>();
         names = new ArrayList<String>();
         pictures = new ArrayList<String>();
+
+        InputGraphs = new ArrayList<LtdGraph2>();
+        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
     private void LoadResult() {
@@ -66,29 +75,36 @@ public class MainFrame extends javax.swing.JFrame {
         g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getWidth());
         MyGraphics g2d = new MyGraphics(g);
 
-        if (LtdGraphs.size() >= 1) {
-            for (LtdGraph graph : LtdGraphs) {
-//                LtdGraph shortgraph = new LtdGraph(graph);
-//                shortgraph.cleanshort(10);
+        if (this.Graph != null) {
 
-                if (graph.Vertexs.size() < 15) {
-                    for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
-                        diem.add(Vertex.id);
-                        g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
+            if (Graph.Vertexs.size() < 15) {
+                for (LtdGraph.LtdGraphVertex Vertex : Graph.Vertexs) {
+                    diem.add(Vertex.id);
+                    if (chkboxNames.isSelected()) {
+                        g2d.DrawPoint(luudiem, Vertex.id, Graph.Names.get(Vertex.id), Graph.Pictures.get(Vertex.id));
+                    } else {
+                        g2d.DrawPoint(luudiem, Vertex.id, "", Graph.Pictures.get(Vertex.id));
                     }
-
-                    for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
-                        String strlabel = "";
-                        for (int label : edgeMatrix.labels) {
-                            strlabel += ", " + relationships.get(label - 1);
-                        }
-                        strlabel = strlabel.substring(2, strlabel.length());
-                        g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
-                    }
-                } else {
-                    g2d.DrawWarning();
                 }
+
+                for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graph).getEdgeMatrix()) {
+                    String strlabel = "";
+                    for (int label : edgeMatrix.labels) {
+                        strlabel += ", " + Graph.Relationships.get(label);
+                    }
+                    strlabel = strlabel.substring(2, strlabel.length());
+                    if (chkboxRelationships.isSelected()) {
+                        if (chkboxRelationshipLabel.isSelected()) {
+                            g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
+                        } else {
+                            g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], "");
+                        }
+                    }
+                }
+            } else {
+                g2d.DrawWarning();
             }
+
         }
         ///JOptionPane.showMessageDialog(null, "Hiển thị đồ thị đầu vào thành công!", "Đồ thị đầu vào", JOptionPane.INFORMATION_MESSAGE);
 
@@ -104,7 +120,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         btnOpen = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtFile = new javax.swing.JTextField();
         btnHandling = new javax.swing.JButton();
@@ -116,17 +131,22 @@ public class MainFrame extends javax.swing.JFrame {
         btnReload = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel6 = new javax.swing.JLabel();
-        txtEdges = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtVertexs = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtRelationships = new javax.swing.JTextField();
         btnReload1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtInputGraphs = new javax.swing.JTextField();
+        btnOpenInput = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        chkboxRelationships = new javax.swing.JCheckBox();
+        chkboxNames = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        chkboxRelationshipLabel = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Khai phá đồ thị");
-        setResizable(false);
 
         btnOpen.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnOpen.setText("Open");
@@ -135,19 +155,6 @@ public class MainFrame extends javax.swing.JFrame {
                 btnOpenActionPerformed(evt);
             }
         });
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel1.setText("File In:");
@@ -189,13 +196,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel6.setText("Số lượt quan hệ:");
-
-        txtEdges.setEditable(false);
-        txtEdges.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtEdges.setForeground(new java.awt.Color(153, 0, 0));
-
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel7.setText("Số đỉnh:");
 
@@ -219,41 +219,100 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel9.setText("Số đồ thị đầu vào:");
+
+        txtInputGraphs.setEditable(false);
+        txtInputGraphs.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtInputGraphs.setForeground(new java.awt.Color(153, 0, 0));
+        txtInputGraphs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        btnOpenInput.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnOpenInput.setText("Xem các đồ thị đầu vào");
+        btnOpenInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenInputActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1300, 550));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1300, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+
+        chkboxRelationships.setSelected(true);
+        chkboxRelationships.setText("Mối quan hệ");
+        chkboxRelationships.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                chkboxRelationshipsStateChanged(evt);
+            }
+        });
+
+        chkboxNames.setSelected(true);
+        chkboxNames.setText("Họ tên");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Hiển thị:");
+
+        chkboxRelationshipLabel.setSelected(true);
+        chkboxRelationshipLabel.setText("Nhãn quan hệ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEdges, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                            .addComponent(txtVertexs))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtMinSup, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnHandling))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtVertexs, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                    .addComponent(txtRelationships))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtInputGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnOpenInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtMinSup, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnHandling))))
+                            .addComponent(jSeparator2))
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -261,28 +320,39 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnOpen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkboxNames)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chkboxRelationships)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chkboxRelationshipLabel)
+                        .addGap(75, 75, 75)
                         .addComponent(btnReload1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReload))
-                    .addComponent(jSeparator2)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
+                        .addComponent(btnReload)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOpen)
                     .addComponent(btnReload)
-                    .addComponent(btnReload1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReload1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(chkboxRelationships)
+                        .addComponent(chkboxNames)
+                        .addComponent(jLabel5)
+                        .addComponent(chkboxRelationshipLabel)))
+                .addGap(10, 10, 10)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,174 +369,39 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txtVertexs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtVertexs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtInputGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtEdges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
-                            .addComponent(txtRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(19, 19, 19))
+                            .addComponent(txtRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnOpenInput))))
+                .addGap(10, 10, 10))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
-        Graphs.clear();
-        LtdGraphs.clear();
-        relationships.clear();
-        names.clear();
-        pictures.clear();
 
-        jPanel1.repaint();
+        ReadInputFile();
+        this.Graph = new LtdGraph2(InputGraphs);
+        txtInputGraphs.setText(InputGraphs.size() + "");
+        txtVertexs.setText(Graph.Vertexs.size() + "");
+        txtRelationships.setText(Graph.Relationships.size() + "");
 
-        JFileChooser openFile = new JFileChooser();
-        FileFilter filter = new FileNameExtensionFilter("Text File", "txt");
-        openFile.setFileFilter(filter);
-        if (openFile.showOpenDialog(null) == 0) {
-            this.myFile = openFile;
-            txtMinSup.setEnabled(true);
-            txtFileOut.setEnabled(true);
-            btnHandling.setEnabled(true);
-            txtFile.setText(openFile.getSelectedFile().getPath());
-
-            File readfile = new File(openFile.getSelectedFile().getPath());
-
-            List<Integer> diem = new ArrayList<Integer>();
-            Point[] luudiem = new Point[50];
-            for (int i = 0; i < luudiem.length; i++) {
-                luudiem[i] = new Point(0, 0);
-            }
-
-            Graphics g;
-            g = jPanel1.getGraphics();
-            MyGraphics g2d = new MyGraphics(g);
-
-            try {
-                FileReader reader = new FileReader(readfile);
-                BufferedReader buffer = new BufferedReader(reader);
-
-                String readline;
-                ArrayList<String> lines = new ArrayList<String>();
-
-                while ((readline = buffer.readLine()) != null) {
-                    lines.add(readline);
-                }
-
-                /// Read Relationships
-                int index = 0;
-                while (!("rrr".equals(lines.get(index)))) {
-                    relationships.add(lines.get(index));
-                    index++;
-                }
-                index++;
-                txtRelationships.setText("" + relationships.size());
-
-                /// Read Names
-                while (!("nnn".equals(lines.get(index)))) {
-                    names.add(lines.get(index));
-                    index++;
-                }
-                index++;
-                txtVertexs.setText("" + names.size());
-
-                /// Read Pictures' Links
-                while (!("ppp".equals(lines.get(index)))) {
-                    pictures.add(lines.get(index));
-                    index++;
-                }
-                index++;
-
-                /// Save to Graphs
-                ///index = 0;
-                while (index < lines.size()) {
-                    String line = lines.get(index);
-
-                    if (line.charAt(0) != 't') {
-
-                    } else /// line[0] == 't'
-                    {
-                        ChildGraph childGraph = new ChildGraph();
-                        childGraph.t = line;
-                        index++;
-
-                        while ((index < lines.size()) && (lines.get(index).charAt(0) != 't')) {
-                            if (lines.get(index).charAt(0) == 'v') {
-                                childGraph.Points.add(lines.get(index));
-                            }
-
-                            if (lines.get(index).charAt(0) == 'e') {
-                                childGraph.Vectors.add(lines.get(index));
-                            }
-
-                            index++;
-                        }
-
-                        if (!Graphs.contains(childGraph)) {
-                            Graphs.add(childGraph);
-                        }
-
-                        index--;
-                    }
-
-                    index++;
-                }
-
-                /// Order graphs
-                if (Graphs.size() >= 1) {
-                    for (ChildGraph Graph : Graphs) {
-                        Graph.sort();
-                    }
-                }
-
-                /// Convert to LtdGraph
-                for (ChildGraph graph : Graphs) {
-                    LtdGraphs.add(new LtdGraph(graph));
-                }
-
-                LtdGraphs.get(0).showEdgeMatrix();
-
-                /// Show graphs
-                if (LtdGraphs.size() >= 1) {
-                    for (LtdGraph graph : LtdGraphs) {
-                        txtEdges.setText("" + graph.Edges.size());
-
-//                        LtdGraph shortgraph = new LtdGraph(graph);
-//                        shortgraph.cleanshort(10);
-                        if (graph.Vertexs.size() < 15) {
-                            int indexVertex = 0;
-                            for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
-                                diem.add(Vertex.id);
-                                ///g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
-                                g2d.DrawPointX(indexVertex, names.get(Vertex.id), pictures.get(Vertex.id));
-                                indexVertex++;
-                            }
-
-                            for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
-                                String strlabel = "";
-                                for (int label : edgeMatrix.labels) {
-                                    strlabel += ", " + relationships.get(label - 1);
-                                }
-                                strlabel = strlabel.substring(2, strlabel.length());
-                                ///g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
-                                g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
-                            }
-                        } else {
-                            g2d.DrawWarning();
-                        }
-
-                    }
-                }
-                ///JOptionPane.showMessageDialog(null, "Hiển thị đồ thị đầu vào thành công!", "Đồ thị đầu vào", JOptionPane.INFORMATION_MESSAGE);
-                txtFileOut.setText(txtFile.getText() + "_out.txt");
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+        if (Graph.Vertexs.size() < 15) {
+            chkboxNames.setSelected(true);
+            chkboxRelationships.setSelected(true);
+            chkboxRelationshipLabel.setSelected(true);
+        } else {
+            chkboxNames.setSelected(false);
+            chkboxRelationships.setSelected(false);
+            chkboxRelationshipLabel.setSelected(false);
         }
+     
+        LoadBestView();
     }//GEN-LAST:event_btnOpenActionPerformed
 
     private void btnHandlingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHandlingActionPerformed
@@ -480,24 +415,23 @@ public class MainFrame extends javax.swing.JFrame {
 
             usage();
 
-            File readfile = new File(txtFile.getText());
+            ///File readfile = new File(txtFile.getText());
+            File joinedGraphFile = new File("temp.txt");
+            WriteJoinedGraphFile(joinedGraphFile);
+
             File writefile = new File(txtFileOut.getText());
             FileReader reader;
             try {
-                reader = new FileReader(readfile);
+                reader = new FileReader(joinedGraphFile);
                 FileWriter writer = new FileWriter(writefile);
                 writer.flush();
 
                 gSpan gspan = new gSpan();
-
                 gspan.run(reader, writer, minsup, maxpat, minnodes, directed);
 
                 CleanFile(writefile);
-
                 JOptionPane.showMessageDialog(null, "Đã lưu kết quả vào file " + txtFileOut.getText());
 
-                ///ChildResultFrame frmResult = new ChildResultFrame(writefile.getAbsoluteFile());
-                ///frmResult.show();
                 SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile());
                 frmResults.show();
             } catch (Exception ex) {
@@ -516,6 +450,28 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         LoadBestView();
     }//GEN-LAST:event_btnReload1ActionPerformed
+
+    private void btnOpenInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenInputActionPerformed
+        // TODO add your handling code here:
+        SingleGraphFrame2[] inputFrames = new SingleGraphFrame2[10];
+
+        for (int i = 0; i < InputGraphs.size(); i++) {
+            inputFrames[i] = new SingleGraphFrame2(InputGraphs.get(i));
+            inputFrames[i].show();
+
+        }
+
+
+    }//GEN-LAST:event_btnOpenInputActionPerformed
+
+    private void chkboxRelationshipsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkboxRelationshipsStateChanged
+        // TODO add your handling code here:
+        if (chkboxRelationships.isSelected()) {
+
+        } else {
+            chkboxRelationshipLabel.setSelected(false);
+        }
+    }//GEN-LAST:event_chkboxRelationshipsStateChanged
 
     /**
      * @param args the command line arguments
@@ -555,21 +511,26 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHandling;
     private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnOpenInput;
     private javax.swing.JButton btnReload;
     private javax.swing.JButton btnReload1;
+    private javax.swing.JCheckBox chkboxNames;
+    private javax.swing.JCheckBox chkboxRelationshipLabel;
+    private javax.swing.JCheckBox chkboxRelationships;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField txtEdges;
     private javax.swing.JTextField txtFile;
     private javax.swing.JTextField txtFileOut;
+    private javax.swing.JTextField txtInputGraphs;
     private javax.swing.JTextField txtMinSup;
     private javax.swing.JTextField txtRelationships;
     private javax.swing.JTextField txtVertexs;
@@ -640,17 +601,17 @@ public class MainFrame extends javax.swing.JFrame {
             FileWriter writer = new FileWriter(writefile);
             BufferedWriter write = new BufferedWriter(writer);
 
-            for (String relation : relationships) {
+            for (String relation : Graph.Relationships) {
                 write.write(relation + "\r\n");
             }
             write.write("rrr" + "\r\n");
 
-            for (String name : names) {
+            for (String name : Graph.Names) {
                 write.write(name + "\r\n");
             }
             write.write("nnn" + "\r\n");
 
-            for (String picture : pictures) {
+            for (String picture : Graph.Pictures) {
                 write.write(picture + "\r\n");
             }
             write.write("ppp" + "\r\n");
@@ -672,46 +633,217 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void LoadBestView() {
-        List<Integer> diem = new ArrayList<Integer>();
-        Point[] luudiem = new Point[50];
-        for (int i = 0; i < luudiem.length; i++) {
-            luudiem[i] = new Point(0, 0);
-        }
-
         Graphics g;
         g = jPanel1.getGraphics();
-        g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getWidth());
+        g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+        jPanel1.setOpaque(true);
         MyGraphics g2d = new MyGraphics(g);
 
-        if (LtdGraphs.size() >= 1) {
-            for (LtdGraph graph : LtdGraphs) {
-                txtEdges.setText("" + graph.Edges.size());
+        if (Graph != null) {
 
-//                        LtdGraph shortgraph = new LtdGraph(graph);
-//                        shortgraph.cleanshort(10);
-                if (graph.Vertexs.size() < 15) {
-                    int indexVertex = 0;
-                    for (LtdGraph.LtdGraphVertex Vertex : graph.Vertexs) {
-                        diem.add(Vertex.id);
-                        ///g2d.DrawPoint(luudiem, Vertex.id, names.get(Vertex.id), pictures.get(Vertex.id));
-                        g2d.DrawPointX(indexVertex, names.get(Vertex.id), pictures.get(Vertex.id));
-                        indexVertex++;
-                    }
+            if (Graph.Vertexs.size() < 15) {
 
-                    for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : graph.getEdgeMatrix()) {
-                        String strlabel = "";
-                        for (int label : edgeMatrix.labels) {
-                            strlabel += ", " + relationships.get(label - 1);
-                        }
-                        strlabel = strlabel.substring(2, strlabel.length());
-                        ///g2d.VeCanh(luudiem[edgeMatrix.from], luudiem[edgeMatrix.to], strlabel);
-                        g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
+                for (LtdGraph2.LtdGraph2Vertex Vertex : Graph.Vertexs) {
+                    if (chkboxNames.isSelected()) {
+                        g2d.DrawPointX(Vertex.id, Graph.Names.get(Vertex.id), Graph.Pictures.get(Vertex.id));
+                    } else {
+                        g2d.DrawPointX(Vertex.id, "", Graph.Pictures.get(Vertex.id));
                     }
-                } else {
-                    g2d.DrawWarning();
                 }
 
+                for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graph).getEdgeMatrix()) {
+                    String strlabel = "";
+                    for (int label : edgeMatrix.labels) {
+                        strlabel += ", " + Graph.Relationships.get(label);
+                    }
+                    strlabel = strlabel.substring(2, strlabel.length());
+
+                    if (chkboxRelationships.isSelected()) {
+                        if (chkboxRelationshipLabel.isSelected()) {
+                            g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
+                        } else {
+                            g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, "");
+                        }
+                    }
+                }
+
+            } else if (Graph.Vertexs.size() <= 100) {
+                for (LtdGraph2.LtdGraph2Vertex Vertex : Graph.Vertexs) {
+                    if (chkboxNames.isSelected()) {
+                        g2d.DrawPointX100(Vertex.id, Graph.Names.get(Vertex.id), Graph.Pictures.get(Vertex.id));
+                    } else {
+                        g2d.DrawPointX100(Vertex.id, "", Graph.Pictures.get(Vertex.id));
+                    }
+                }
+
+                for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graph).getEdgeMatrix()) {
+
+                    String strlabel = "";
+                    for (int label : edgeMatrix.labels) {
+                        strlabel += ", " + Graph.Relationships.get(label);
+                    }
+                    strlabel = strlabel.substring(2, strlabel.length());
+                    if (chkboxRelationships.isSelected()) {
+                        if (chkboxRelationshipLabel.isSelected()) {
+                            g2d.DrawEdgeXY100(edgeMatrix.from, edgeMatrix.to, strlabel);
+                        } else {
+                            g2d.DrawEdgeXY100(edgeMatrix.from, edgeMatrix.to, "");
+                        }
+                    }
+                }
+
+            } else {
+                g2d.DrawWarning();
+
             }
+
+        }
+
+    }
+
+    private void ReadInputFile() {
+        JFileChooser openFile = new JFileChooser();
+        FileFilter filter = new FileNameExtensionFilter("Text File", "txt");
+        openFile.setFileFilter(filter);
+        if (openFile.showOpenDialog(null) == 0) {
+            this.myFile = openFile;
+            txtMinSup.setEnabled(true);
+            txtFileOut.setEnabled(true);
+            btnHandling.setEnabled(true);
+            txtFile.setText(openFile.getSelectedFile().getPath());
+            txtFileOut.setText(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out.txt");
+
+            this.InputGraphs = new ArrayList<LtdGraph2>();
+            File readfile = new File(openFile.getSelectedFile().getPath());
+
+            try {
+                FileReader reader = new FileReader(readfile);
+                BufferedReader buffer = new BufferedReader(reader);
+
+                String readline;
+                ArrayList<String> lines = new ArrayList<String>();
+
+                while ((readline = buffer.readLine()) != null) {
+                    lines.add(readline);
+                }
+
+                /// Read input graphs dataset
+                if (lines.size() > 0) {
+                    int index = 0;
+
+                    while (index < lines.size()) {
+                        if ("GG".equals(lines.get(index).substring(1, 3))) {
+                            LtdGraph2 inputGraph = new LtdGraph2(this.InputGraphs.size());
+                            index++;
+
+                            /// Read Names
+                            while (!"nnn".equals(lines.get(index))) {
+                                if (!"null".equals(lines.get(index))) {
+                                    inputGraph.Names.add(lines.get(index));
+                                } else {
+                                    inputGraph.Names.add("");
+                                }
+
+                                index++;
+                            }
+                            index++;
+
+                            /// Read Avatars
+                            while (!"ppp".equals(lines.get(index))) {
+                                if (!"null".equals(lines.get(index))) {
+                                    inputGraph.Pictures.add(lines.get(index));
+                                } else {
+                                    inputGraph.Pictures.add("");
+                                }
+
+                                index++;
+                            }
+                            index++;
+
+                            /// Read Relationships
+                            while (!"rrr".equals(lines.get(index))) {
+                                if (!"null".equals(lines.get(index))) {
+                                    inputGraph.Relationships.add(lines.get(index));
+                                } else {
+                                    inputGraph.Relationships.add("");
+                                }
+
+                                index++;
+                            }
+                            index++;
+
+                            /// Read Vertexs and Edges
+                            while ((index < lines.size()) && (!"GGG".equals(lines.get(index).substring(0, 3)))) {
+                                if (lines.get(index).charAt(0) == 'v') {
+                                    inputGraph.Vertexs.add(new LtdGraph2.LtdGraph2Vertex(lines.get(index)));
+                                }
+
+                                if (lines.get(index).charAt(0) == 'e') {
+                                    inputGraph.Edges.add(new LtdGraph2.LtdGraph2Edge(lines.get(index)));
+                                }
+                                index++;
+                            }
+
+                            this.InputGraphs.add(inputGraph);
+                            index--;
+                        }
+
+                        index++;
+                    }
+
+                }
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+
+    private void WriteJoinedGraphFile(File joinedGraphFile) {
+        try {
+            FileWriter writer = new FileWriter(joinedGraphFile);
+            BufferedWriter write = new BufferedWriter(writer);
+
+            for (String relation : this.Graph.Relationships) {
+                write.write(relation + "\r\n");
+            }
+            write.write("rrr" + "\r\n");
+
+            for (String name : this.Graph.Names) {
+                write.write(name + "\r\n");
+            }
+            write.write("nnn" + "\r\n");
+
+            for (String picture : this.Graph.Pictures) {
+                write.write(picture + "\r\n");
+            }
+            write.write("ppp" + "\r\n");
+
+//            for (ChildGraph Graph : Graphs) {
+//                write.write(Graph.t + "\r\n");
+//                for (String Point : Graph.Points) {
+//                    write.write(Point + "\r\n");
+//                }
+//                for (String Vector : Graph.Vectors) {
+//                    write.write(Vector + "\r\n");
+//                }
+//            }
+            write.write("t # 0" + "\r\n");
+            for (LtdGraph2Vertex Vertex : Graph.Vertexs) {
+                write.write("v " + Vertex.id + " " + Vertex.label + "\r\n");
+            }
+
+            for (LtdGraph2Edge Edge : Graph.Edges) {
+                write.write("e " + Edge.from + " " + Edge.to + " " + (Edge.label + 1) + "\r\n");
+            }
+
+            write.close();
+            System.out.println("Writen!");
+        } catch (Exception e) {
+
         }
     }
 }

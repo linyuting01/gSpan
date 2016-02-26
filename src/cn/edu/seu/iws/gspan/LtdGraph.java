@@ -5,6 +5,7 @@
  */
 package cn.edu.seu.iws.gspan;
 
+import cn.edu.seu.iws.gspan.LtdGraph2.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
@@ -20,10 +21,11 @@ public class LtdGraph {
     public ArrayList<LtdGraphVertex> Vertexs;   /// v 0 1
     public ArrayList<LtdGraphEdge> Edges;       /// e 0 1 3 
 
-    private boolean IsContains(ArrayList<LtdGraphEdgeMatrix> EdgeMatrixs, LtdGraphEdge Edge) {
+    protected boolean IsContains(ArrayList<LtdGraphEdgeMatrix> EdgeMatrixs, LtdGraphEdge Edge) {
         for (LtdGraphEdgeMatrix EdgeMatrix : EdgeMatrixs) {
-            if (EdgeMatrix.equals(Edge))
+            if (EdgeMatrix.equals(Edge)) {
                 return true;
+            }
         }
         return false;
     }
@@ -147,6 +149,19 @@ public class LtdGraph {
         this.Edges = graph.Edges;
     }
 
+    public LtdGraph(LtdGraph2 graph) {
+        this.Name = new LtdGraphName(graph.Name.id);
+        this.Vertexs = new ArrayList<LtdGraphVertex>();
+        this.Edges = new ArrayList<LtdGraphEdge>();
+        
+        for (LtdGraph2Vertex Vertex : graph.Vertexs) {
+            this.Vertexs.add(new LtdGraphVertex(Vertex.id, Vertex.label));
+        }
+        for (LtdGraph2Edge Edge : graph.Edges) {
+            this.Edges.add(new LtdGraphEdge(Edge.from, Edge.to, Edge.label));
+        }
+    }
+
     public LtdGraph(LtdGraphName Name, ArrayList<LtdGraphVertex> Vertexs, ArrayList<LtdGraphEdge> Edges) {
         this.Name = Name;
         this.Vertexs = Vertexs;
@@ -161,7 +176,7 @@ public class LtdGraph {
 
         for (String Point : graph.Points) {
             String[] PointSplit = Point.split("\\s+");
-            
+
             int id = Integer.parseInt(PointSplit[1]);
             int label = Integer.parseInt(PointSplit[2]);
             this.Vertexs.add(new LtdGraphVertex(id, label));
@@ -190,16 +205,16 @@ public class LtdGraph {
 
     public void sort() {
         ///Vertexs.sort(null);
-        for (int i = 0; i < Vertexs.size()-1; i++) {
-            for (int j = i+1; j < Vertexs.size(); j++) {
+        for (int i = 0; i < Vertexs.size() - 1; i++) {
+            for (int j = i + 1; j < Vertexs.size(); j++) {
                 if (Vertexs.get(i).id > Vertexs.get(j).id) {
                     int temp = Vertexs.get(i).id;
                     Vertexs.get(i).id = Vertexs.get(j).id;
                     Vertexs.get(j).id = temp;
                 }
-                
+
             }
-            
+
         }
         ///Edges.sort(null);
     }
@@ -227,21 +242,21 @@ public class LtdGraph {
         this.clean();
         if (this.Vertexs.size() > top) {
             while (this.Vertexs.size() > top) {
-                this.Vertexs.remove(this.Vertexs.size()-1);
+                this.Vertexs.remove(this.Vertexs.size() - 1);
             }
-        
+
             int i = 0;
             while (i < this.Edges.size()) {
-                if ((Edges.get(i).from >= (this.Vertexs.size()-1)) || (Edges.get(i).to >= (this.Vertexs.size()-1))){
+                if ((Edges.get(i).from >= (this.Vertexs.size() - 1)) || (Edges.get(i).to >= (this.Vertexs.size() - 1))) {
                     this.Edges.remove(i);
                 } else {
                     i++;
                 }
             }
         }
-        
+
     }
-    
+
     public ArrayList<LtdGraphEdgeMatrix> getEdgeMatrix() {
         ArrayList<LtdGraphEdgeMatrix> EdgeMatrixs = new ArrayList<LtdGraphEdgeMatrix>();
 
@@ -336,25 +351,4 @@ public class LtdGraph {
         }
     }
 
-//    public static class LtdShowGraphEdgeMatrix_To {
-//
-//        public int id;
-//        public int label;
-//
-//        public LtdShowGraphEdgeMatrix_To() {
-//            id = 0;
-//            label = 0;
-//        }
-//
-//        public LtdShowGraphEdgeMatrix_To(int id, int label) {
-//            this.id = id;
-//            this.label = label;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return id + " " + label;
-//        }
-//
-//    }
 }

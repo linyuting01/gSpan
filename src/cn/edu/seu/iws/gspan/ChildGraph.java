@@ -38,32 +38,6 @@ public class ChildGraph {
         Vectors.sort(null);
     }
 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final ChildGraph other = (ChildGraph) obj;
-//        if (!Objects.equals(this.Points, other.Points)) {
-//            return false;
-//        }
-//        if (Objects.equals(this.Vectors, other.Vectors)) {
-//            return true;
-//        }
-//        if (this.Points.size() != other.Points.size()) {
-//            return false;
-//        }
-//        if (this.Vectors.size() != other.Vectors.size()) {
-//            return false;
-//        }
-//        return true;
-//    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
