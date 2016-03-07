@@ -1,0 +1,101 @@
+﻿GGG 3
+Tạ Đình Hưng
+Đông Phương
+Anh Vy
+Huyền Nợn
+Hải Nguyễn
+Nguyễn Thị Phương Thảo
+Cao Thùy Trang
+Chuyên Chăm Chỉ
+Thùy Giang
+Mark Tim
+Thiên Khải
+Anh Tuấn
+Mai Tây
+Mai Mia
+Hồng Tẹt
+Tiểu Ma Nữ
+My My Phan
+Trà Thu Nguyễn
+Trần Tuấn Minh
+Trần Đức Anh
+Lingg Vie
+Dương Huân
+Trang Quỳnh
+Huyen Hin
+nnn
+tadinhhung.png
+dongphuong.png
+anhvy.png
+huyennon.png
+hainguyen.png
+nguyenthiphuongthao.png
+caothuytrang.png
+chuyenchamchi.png
+thuygiang.png
+marktim.png
+thienkhai.png
+anhtuan.png
+maitay.png
+maimia.png
+hongtet.png
+tieumanu.png
+mymyphan.png
+trathunguyen.png
+trantuanminh.png
+tranducanh.png
+linggvie.png
+duonghuan.png
+trangquynh.png
+huyenhin.png
+ppp
+Bạn bè
+Cùng sở thích nghe nhạc
+Cùng chăm sóc sức khỏe ở Viện Dệt May
+rrr
+v 0 1
+v 1 2
+v 2 2
+v 3 2
+v 4 1
+v 5 2
+v 6 2
+v 7 2
+v 8 2
+v 9 1
+v 10 1
+v 11 1
+v 12 2
+v 13 2
+v 14 2
+v 15 2
+v 16 2
+v 17 2
+v 18 1
+v 19 1
+v 20 2
+v 21 1
+v 22 2
+v 23 2
+e 5 0 1
+e 6 1 1
+e 7 1 1
+e 8 3 1
+e 9 3 2
+e 9 5 2
+e 10 3 1
+e 11 9 2
+e 12 3 1
+e 13 3 1
+e 14 3 1
+e 15 3 1
+e 16 4 1
+e 16 4 2
+e 17 16 2
+e 18 17 1
+e 19 18 1
+e 19 16 2
+e 20 4 1
+e 21 2 1
+e 22 2 3
+e 23 2 1

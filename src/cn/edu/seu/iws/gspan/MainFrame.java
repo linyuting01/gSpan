@@ -143,7 +143,6 @@ public class MainFrame extends javax.swing.JFrame {
         chkboxNames = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         chkboxRelationshipLabel = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -266,25 +265,19 @@ public class MainFrame extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 548, Short.MAX_VALUE)
         );
-
-        jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 10, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -334,10 +327,13 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnHandling)))
-                        .addGap(10, 10, 10))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(10, 10, 10))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,9 +351,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(chkboxRelationshipLabel))
                 .addGap(5, 5, 5)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,18 +390,24 @@ public class MainFrame extends javax.swing.JFrame {
         this.Graph = new LtdGraph2(InputGraphs);
         txtInputGraphs.setText(InputGraphs.size() + "");
         txtVertexs.setText(Graph.Vertexs.size() + "");
+//        for (String Name : Graph.Names) {
+//            System.out.println(Name);
+//        }
         txtRelationships.setText(Graph.Relationships.size() + "");
 
-        if (Graph.Vertexs.size() < 15) {
-            chkboxNames.setSelected(true);
-            chkboxRelationships.setSelected(true);
-            chkboxRelationshipLabel.setSelected(true);
-        } else {
-            chkboxNames.setSelected(false);
-            chkboxRelationships.setSelected(false);
-            chkboxRelationshipLabel.setSelected(false);
-        }
-     
+        chkboxNames.setSelected(true);
+        chkboxRelationships.setSelected(true);
+        chkboxRelationshipLabel.setSelected(true);
+
+//        if (Graph.Vertexs.size() < 15) {
+//            chkboxNames.setSelected(true);
+//            chkboxRelationships.setSelected(true);
+//            chkboxRelationshipLabel.setSelected(true);
+//        } else {
+//            chkboxNames.setSelected(false);
+//            chkboxRelationships.setSelected(false);
+//            chkboxRelationshipLabel.setSelected(false);
+//        }
         LoadBestView();
     }//GEN-LAST:event_btnOpenActionPerformed
 
@@ -458,14 +460,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnOpenInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenInputActionPerformed
         // TODO add your handling code here:
-        SingleGraphFrame2[] inputFrames = new SingleGraphFrame2[10];
-
-        for (int i = 0; i < InputGraphs.size(); i++) {
-            inputFrames[i] = new SingleGraphFrame2(InputGraphs.get(i));
-            inputFrames[i].show();
-
-        }
-
+        SingleGraphFrame2 inputFrames = new SingleGraphFrame2(InputGraphs);
+        inputFrames.show();
 
     }//GEN-LAST:event_btnOpenInputActionPerformed
 
@@ -492,16 +488,24 @@ public class MainFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -531,7 +535,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField txtFile;
@@ -711,6 +714,9 @@ public class MainFrame extends javax.swing.JFrame {
         JFileChooser openFile = new JFileChooser();
         FileFilter filter = new FileNameExtensionFilter("Text File", "txt");
         openFile.setFileFilter(filter);
+
+        openFile.setCurrentDirectory(new File(openFile.getCurrentDirectory().getAbsolutePath() + "\\NetBeansProjects\\gSpan\\test"));
+        System.out.println(openFile.getCurrentDirectory().getAbsolutePath() + "\\NetBeansProjects\\gSpan\\test");
         if (openFile.showOpenDialog(null) == 0) {
             this.myFile = openFile;
             txtMinSup.setEnabled(true);
@@ -795,14 +801,18 @@ public class MainFrame extends javax.swing.JFrame {
                         }
 
                         index++;
+
                     }
 
                 }
 
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         }

@@ -6,6 +6,10 @@
 package cn.edu.seu.iws.gspan;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +17,9 @@ import java.awt.Graphics;
  */
 public class SingleGraphFrame2 extends javax.swing.JFrame {
 
-    private LtdGraph2 Graph;
+//    private LtdGraph2 Graph;
+    private ArrayList<LtdGraph2> InputGraphs;
+    private int IndexGraph;
 
     /**
      * Creates new form SingleGraphFrame2
@@ -22,11 +28,25 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
         initComponents();
     }
 
-    public SingleGraphFrame2(LtdGraph2 Graph) {
-        initComponents();
-        this.Graph = Graph;
-    }
+//    public SingleGraphFrame2(LtdGraph2 Graph) {
+//        initComponents();
+//        this.Graph = Graph;
+//    }
 
+    public SingleGraphFrame2(ArrayList<LtdGraph2> InputGraphs) {
+        initComponents();
+        this.InputGraphs = InputGraphs;
+        
+        chkboxNames.setSelected(true);
+        chkboxRelationshipLabel.setSelected(true);
+        chkboxRelationships.setSelected(true);
+//        
+//        lblTotal.setText(this.InputGraphs.size() + "");
+//        lblIndex.setText("1");
+        
+        this.IndexGraph = 0;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +59,19 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         btnReLoad = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtVertexs = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtRelationships = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        lblIndex = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        btnNext = new javax.swing.JButton();
+        chkboxRelationships = new javax.swing.JCheckBox();
+        chkboxNames = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        chkboxRelationshipLabel = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -53,7 +86,7 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addGap(0, 1322, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,6 +102,57 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel7.setText("Số đỉnh:");
+
+        txtVertexs.setEditable(false);
+        txtVertexs.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtVertexs.setForeground(new java.awt.Color(153, 0, 0));
+        txtVertexs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel8.setText("Số loại quan hệ:");
+
+        txtRelationships.setEditable(false);
+        txtRelationships.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtRelationships.setForeground(new java.awt.Color(153, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Đồ thị:");
+
+        lblIndex.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblIndex.setForeground(new java.awt.Color(0, 102, 102));
+        lblIndex.setText("0");
+
+        lblTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblTotal.setForeground(new java.awt.Color(204, 0, 0));
+        lblTotal.setText("/0");
+
+        btnNext.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnNext.setText("Next");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
+
+        chkboxRelationships.setSelected(true);
+        chkboxRelationships.setText("Mối quan hệ");
+        chkboxRelationships.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                chkboxRelationshipsStateChanged(evt);
+            }
+        });
+
+        chkboxNames.setSelected(true);
+        chkboxNames.setText("Họ tên");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Hiển thị:");
+
+        chkboxRelationshipLabel.setSelected(true);
+        chkboxRelationshipLabel.setText("Nhãn quan hệ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,19 +161,67 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addComponent(btnReLoad)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnReLoad)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkboxNames)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chkboxRelationships)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chkboxRelationshipLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNext)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblIndex)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTotal))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 1302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtVertexs, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnReLoad)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReLoad)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNext)
+                        .addComponent(jLabel1)
+                        .addComponent(lblIndex)
+                        .addComponent(lblTotal)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkboxRelationships)
+                            .addComponent(chkboxNames)
+                            .addComponent(jLabel5)
+                            .addComponent(chkboxRelationshipLabel))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtVertexs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -98,14 +230,40 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        BestView();
+        BestView(0);
     }//GEN-LAST:event_formWindowOpened
 
     private void btnReLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReLoadActionPerformed
         // TODO add your handling code here:
-        BestView();
+        BestView(this.IndexGraph);
 
     }//GEN-LAST:event_btnReLoadActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        // TODO add your handling code here:
+        /// Show first graph
+        this.IndexGraph++;
+
+        if (this.IndexGraph == this.InputGraphs.size()) {
+            this.IndexGraph = 0;
+            JOptionPane.showMessageDialog(null, "Trở lại Đồ thị đầu tiên", "Mở đồ thị", JOptionPane.INFORMATION_MESSAGE);
+            lblIndex.setText("" + (this.IndexGraph + 1));
+        }
+
+        if (this.IndexGraph < this.InputGraphs.size()) {
+            BestView(this.IndexGraph);
+
+        }
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void chkboxRelationshipsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkboxRelationshipsStateChanged
+        // TODO add your handling code here:
+        if (chkboxRelationships.isSelected()) {
+
+        } else {
+            chkboxRelationshipLabel.setSelected(false);
+        }
+    }//GEN-LAST:event_chkboxRelationshipsStateChanged
 
     /**
      * @param args the command line arguments
@@ -143,12 +301,77 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNext;
     private javax.swing.JButton btnReLoad;
+    private javax.swing.JCheckBox chkboxNames;
+    private javax.swing.JCheckBox chkboxRelationshipLabel;
+    private javax.swing.JCheckBox chkboxRelationships;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel lblIndex;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JTextField txtRelationships;
+    private javax.swing.JTextField txtVertexs;
     // End of variables declaration//GEN-END:variables
 
-    private void BestView() {
+//    private void BestView() {
+//        if (Graph != null) {
+//            Graphics g;
+//            g = jPanel1.getGraphics();
+//            g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+//            jPanel1.setOpaque(true);
+//            MyGraphics g2d = new MyGraphics(g);
+//
+//            this.setTitle("Đồ thị đầu vào: " + (Graph.Name.id + 1));
+//
+//            if (Graph.Vertexs.size() < 15) {
+//                for (LtdGraph2.LtdGraph2Vertex vertex : Graph.Vertexs) {
+//                    g2d.DrawPointX(vertex.id, Graph.Names.get(vertex.id), Graph.Pictures.get(vertex.id));
+//                }
+//
+//                for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graph).getEdgeMatrix()) {
+//                    String strlabel = "";
+//                    for (int label : edgeMatrix.labels) {
+//                        strlabel += ", " + Graph.Relationships.get(label - 1);
+//                    }
+//                    strlabel = strlabel.substring(2, strlabel.length());
+//
+//                    g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
+//                }
+//            } else if (Graph.Vertexs.size() <= 100) {
+//                for (LtdGraph2.LtdGraph2Vertex vertex : Graph.Vertexs) {
+//                    g2d.DrawPointX100(vertex.id, Graph.Names.get(vertex.id), Graph.Pictures.get(vertex.id));
+//                }
+//
+//                for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graph).getEdgeMatrix()) {
+//                    String strlabel = "";
+//                    for (int label : edgeMatrix.labels) {
+//                        strlabel += ", " + Graph.Relationships.get(label - 1);
+//                    }
+//                    strlabel = strlabel.substring(2, strlabel.length());
+//
+//                    g2d.DrawEdgeXY100(edgeMatrix.from, edgeMatrix.to, strlabel);
+//                }
+//            } else {
+//                g2d.DrawWarning();
+//            }
+//        }
+//    }
+    
+    private void BestView(int index) {
+        LtdGraph2 Graph = this.InputGraphs.get(index);
+        
+        lblTotal.setText("/" + this.InputGraphs.size());
+        lblIndex.setText("" + (this.IndexGraph+1));
+        
+        txtVertexs.setText("" + this.InputGraphs.get(this.IndexGraph).Vertexs.size());
+        txtRelationships.setText("" + this.InputGraphs.get(this.IndexGraph).Relationships.size());
+        
         if (Graph != null) {
             Graphics g;
             g = jPanel1.getGraphics();
@@ -174,7 +397,10 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
                 }
             } else if (Graph.Vertexs.size() <= 100) {
                 for (LtdGraph2.LtdGraph2Vertex vertex : Graph.Vertexs) {
-                    g2d.DrawPointX100(vertex.id, Graph.Names.get(vertex.id), Graph.Pictures.get(vertex.id));
+                    if (chkboxNames.isSelected())
+                        g2d.DrawPointX100(vertex.id, Graph.Names.get(vertex.id), Graph.Pictures.get(vertex.id));
+                    else
+                        g2d.DrawPointX100(vertex.id, "", Graph.Pictures.get(vertex.id));
                 }
 
                 for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graph).getEdgeMatrix()) {
@@ -184,7 +410,14 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
                     }
                     strlabel = strlabel.substring(2, strlabel.length());
 
-                    g2d.DrawEdgeXY100(edgeMatrix.from, edgeMatrix.to, strlabel);
+                    if (chkboxRelationships.isSelected())
+                    {
+                        if (chkboxRelationshipLabel.isSelected())
+                            g2d.DrawEdgeXY100(edgeMatrix.from, edgeMatrix.to, strlabel);
+                        else
+                            g2d.DrawEdgeXY100(edgeMatrix.from, edgeMatrix.to, "");
+                    }
+                    
                 }
             } else {
                 g2d.DrawWarning();

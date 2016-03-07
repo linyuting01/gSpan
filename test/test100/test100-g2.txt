@@ -1,0 +1,147 @@
+﻿GGG 2
+Nguyễn Châu
+Anh Phuong Dao
+Hoa Lý
+Chen Yu Xin
+Khánh Ngọc Nguyễn
+Hang Anh
+Nguyễn Mai
+Vỹ Mỹ Hạnh
+Phượng Hoàng Phạm
+Hânn Lê Bảo
+Mai Nhu Bui
+Phương Phương
+Hoài Thu Trần
+Quắm Già
+Huy Rooney
+NE To
+Đồng Hiệp
+Ngọc Thanh
+Thân Văn Hiến
+Nghiêm Đạt
+Thu Thu
+Lê Học
+Quang Thành
+Thanh Huyền
+Củ Khoai Sọ
+Ngược Dòng Thời Gian
+Huyền Ảo
+Đông Phương
+Phạm Hương
+Ngô Liên
+Đỗ Đức Huy
+Tuânn
+Trang Nguyên
+Thíchnóixạo Ưalừađảo
+Thu Hoai le Phan
+nnn
+nguyenchau.png
+anhphuongdao.png
+hoaly.png
+chenyuxin.png
+khanhngocnguyen.png
+hanganh.png
+nguyenmai.png
+vymyhanh.png
+phuonghoangpham.png
+hannlebao.png
+mainhubui.png
+phuongphuong.png
+hoaithutran.png
+quangia.png
+huyrooney.png
+neto.png
+donghiep.png
+ngocthanh.png
+thanvanhien.png
+nghiemdat.png
+thuthu.png
+lehoc.png
+quangthanh.png
+thanhhuyen.png
+cukhoaiso.png
+nguocdongthoigian.png
+huyenao.png
+dongphuong.png
+phamhuong.png
+ngolien.png
+doduchuy.png
+tuann.png
+trangnguyen.png
+thichnoixaoualuadao.png
+thuhoailephan.png
+ppp
+Bạn bè
+Họ hàng
+Cùng sở thích nghe nhạc
+rrr
+v 0 1
+v 1 2
+v 2 2
+v 3 1
+v 4 2
+v 5 2
+v 6 2
+v 7 2
+v 8 1
+v 9 2
+v 10 2
+v 11 2
+v 12 2
+v 13 2
+v 14 1
+v 15 1
+v 16 1
+v 17 2
+v 18 1
+v 19 1
+v 20 2
+v 21 1
+v 22 1
+v 23 2
+v 24 2
+v 25 1
+v 26 2
+v 27 2
+v 28 2
+v 29 2
+v 30 1
+v 31 1
+v 32 2
+v 33 2
+v 34 2
+e 5 1 1
+e 6 7 3
+e 6 8 3
+e 7 3 1
+e 8 2 1
+e 9 2 1
+e 10 2 1
+e 11 2 1
+e 12 2 1
+e 13 15 2
+e 14 4 1
+e 15 4 1
+e 16 4 1
+e 17 4 1
+e 18 0 1
+e 18 0 3
+e 19 0 1
+e 20 0 1
+e 21 0 1
+e 21 10 2
+e 21 19 3
+e 22 0 1
+e 23 0 1
+e 24 0 1
+e 25 33 1
+e 25 0 2
+e 26 0 2
+e 27 24 2
+e 28 23 1
+e 28 29 2
+e 29 26 3
+e 32 33 1
+e 33 0 2
+e 33 25 2
+e 34 33 1

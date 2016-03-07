@@ -1,0 +1,68 @@
+﻿GGG 4
+Lộc Đồng Hồ
+Chen Yu Xin
+Vu Thu Uyen
+Anh Vy
+Pham Thuy
+Hải Nguyễn
+Trần Bảo Tuấn
+Thanh Nguyen
+Hanh Do
+Hằng Đinh
+Mai Anh
+Trần Ngọc Trình
+Hang Anh
+NE To
+Đỗ Đức Huy
+Tuânn
+nnn
+locdongho.png
+chenyuxin.png
+vuthuuyen.png
+anhvy.png
+phamthuy.png
+hainguyen.png
+tranbaotuan.png
+thanhnguyen.png
+hanhdo.png
+hangdinh.png
+maianh.png
+tranngoctrinh.png
+hanganh.png
+neto.png
+doduchuy.png
+tuann.png
+ppp
+Bạn bè
+Họ hàng
+Cùng công tác ở Uneti
+Cùng sở thích nghe nhạc
+Cùng chăm sóc sức khỏe ở Viện Dệt May
+rrr
+v 0 2
+v 1 1
+v 2 2
+v 3 2
+v 4 2
+v 5 1
+v 6 1
+v 7 2
+v 8 1
+v 9 2
+v 10 2
+v 11 1
+v 12 2
+v 13 1
+v 14 1
+v 15 1
+e 2 8 3
+e 4 8 3
+e 4 8 4
+e 4 8 5
+e 5 1 5
+e 7 3 4
+e 9 12 2
+e 13 10 2
+e 14 11 1
+e 15 0 1
+e 15 6 1
