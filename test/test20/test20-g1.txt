@@ -1,0 +1,39 @@
+﻿GGG 1
+Lê Tuấn Đạt
+Nguyễn Châu
+Chen Yu Xin
+Lương Thanh Nga
+Hoa Lý
+Trần Quốc Hoàn
+Luong Thao Hieu
+Anh Phuong Dao
+nnn
+letuandat.png
+nguyenchau.png
+chenyuxin.png
+luongthanhnga.png
+hoaly.png
+tranquochoan.png
+luongthaohieu.png
+anhphuongdao.png
+ppp
+Cùng sở thích nghe nhạc
+Cùng chăm sóc sức khỏe ở Viện Dệt May
+rrr
+v 0 1
+v 1 1
+v 2 1
+v 3 2
+v 4 2
+v 5 1
+v 6 2
+v 7 2
+e 2 6 1
+e 2 6 2
+e 4 6 1
+e 4 3 1
+e 4 6 2
+e 5 1 1
+e 6 3 2
+e 6 4 2
+e 7 0 1

@@ -1,0 +1,189 @@
+﻿GGG 0
+Lê Tuấn Đạt
+Nguyễn Châu
+Chen Yu Xin
+Lương Thanh Nga
+Hoa Lý
+Trần Quốc Hoàn
+Lộc Đồng Hồ
+Luong Thao Hieu
+Anh Phuong Dao
+Cảnh Nguyễn Trọng
+nnn
+letuandat.png
+nguyenchau.png
+chenyuxin.png
+luongthanhnga.png
+hoaly.png
+tranquochoan.png
+locdongho.png
+luongthaohieu.png
+anhphuongdao.png
+canhnguyentrong.png
+ppp
+Bạn bè
+Họ hàng
+rrr
+v 0 1
+v 1 1
+v 2 1
+v 3 2
+v 4 2
+v 5 1
+v 6 2
+v 7 2
+v 8 2
+v 9 1
+e 0 1 1
+e 0 2 1
+e 0 7 1
+e 0 6 2
+e 0 9 2
+e 1 2 1
+e 4 7 1
+e 7 3 1
+e 7 4 1
+e 7 5 1
+e 7 8 1
+GGG 1
+Lê Tuấn Đạt
+Nguyễn Châu
+Chen Yu Xin
+Lương Thanh Nga
+Hoa Lý
+Trần Quốc Hoàn
+Luong Thao Hieu
+Anh Phuong Dao
+nnn
+letuandat.png
+nguyenchau.png
+chenyuxin.png
+luongthanhnga.png
+hoaly.png
+tranquochoan.png
+luongthaohieu.png
+anhphuongdao.png
+ppp
+Cùng sở thích nghe nhạc
+Cùng chăm sóc sức khỏe ở Viện Dệt May
+rrr
+v 0 1
+v 1 1
+v 2 1
+v 3 2
+v 4 2
+v 5 1
+v 6 2
+v 7 2
+e 2 6 1
+e 2 6 2
+e 4 6 1
+e 4 3 1
+e 4 6 2
+e 5 1 1
+e 6 3 2
+e 6 4 2
+e 7 0 1
+GGG 2
+Lê Mạnh Thắng
+Điền Hà
+Duc Bo
+Vu Thu Uyen
+Pham Thuy
+Trần Quốc Hoàn
+Luong Thao Hieu
+Anh Phuong Dao
+nnn
+lemanhthang.png
+dienha.png
+ducbo.png
+vuthuuyen.png
+phamthuy.png
+tranquochoan.png
+luongthaohieu.png
+anhphuongdao.png
+ppp
+Cùng công tác ở Uneti
+rrr
+v 0 1
+v 1 2
+v 2 2
+v 3 2
+v 4 2
+v 5 1
+v 6 2
+v 7 2
+e 0 6 1
+e 1 6 1
+e 2 6 1
+e 3 6 1
+e 4 7 1
+e 5 6 1
+e 6 5 1
+e 6 7 1
+e 7 5 1
+e 7 0 1
+e 7 1 1
+e 7 2 1
+e 7 3 1
+GGG 3
+Lê Tuấn Đạt
+Nguyễn Châu
+Chen Yu Xin
+Anh Phuong Dao
+Lê Mạnh Thắng
+Điền Hà
+Duc Bo
+Vu Thu Uyen
+Anh Vy
+Hoàng Trang
+Đồng Quang
+Nguyễn Đức Long
+Huyền Nợn
+nnn
+letuandat.png
+nguyenchau.png
+chenyuxin.png
+anhphuongdao.png
+lemanhthang.png
+dienha.png
+ducbo.png
+vuthuuyen.png
+anhvy.png
+hoangtrang.png
+dongquang.png
+nguyenduclong.png
+huyennon.png
+ppp
+Bạn bè
+Cùng công tác ở Uneti
+Cùng sở thích nghe nhạc
+rrr
+v 0 1
+v 1 1
+v 2 1
+v 3 2
+v 4 1
+v 5 2
+v 6 2
+v 7 2
+v 8 2
+v 9 2
+v 10 1
+v 11 1
+v 12 2
+e 0 8 1
+e 0 9 1
+e 0 11 1
+e 0 12 1
+e 0 8 3
+e 1 10 1
+e 2 10 1
+e 4 5 2
+e 4 6 2
+e 6 1 1
+e 6 2 1
+e 6 3 1
+e 6 7 3
+e 7 4 2
+e 7 5 2

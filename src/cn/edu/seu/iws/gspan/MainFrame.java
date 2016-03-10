@@ -125,9 +125,6 @@ public class MainFrame extends javax.swing.JFrame {
         btnHandling = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtFileOut = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtMinSup = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         btnReload = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -176,17 +173,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         txtFileOut.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtFileOut.setEnabled(false);
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel3.setText("Min Sup:");
-
-        txtMinSup.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtMinSup.setText("80");
-        txtMinSup.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtMinSup.setEnabled(false);
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel4.setText("%");
 
         btnReload.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnReload.setText("Auto View");
@@ -276,9 +262,6 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 10, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,26 +297,18 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(txtInputGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnOpenInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHandling)
+                        .addGap(10, 10, 10))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtMinSup, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnHandling)))
-                        .addGap(10, 10, 10))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 10, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,11 +333,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtMinSup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnHandling)
                             .addComponent(jLabel2)
@@ -415,7 +386,8 @@ public class MainFrame extends javax.swing.JFrame {
         if (txtFileOut.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Bạn phải nhập tên File Out vào!");
         } else {
-            int minsup = Integer.parseInt(txtMinSup.getText());
+            ///int minsup = Integer.parseInt(txtMinSup.getText());
+            int minsup = 80;
             int maxpat = 100000;
             int minnodes = 0;
             boolean directed = false;
@@ -528,8 +500,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkboxRelationships;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -540,7 +510,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtFile;
     private javax.swing.JTextField txtFileOut;
     private javax.swing.JTextField txtInputGraphs;
-    private javax.swing.JTextField txtMinSup;
     private javax.swing.JTextField txtRelationships;
     private javax.swing.JTextField txtVertexs;
     // End of variables declaration//GEN-END:variables
@@ -719,7 +688,7 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println(openFile.getCurrentDirectory().getAbsolutePath() + "\\NetBeansProjects\\gSpan\\test");
         if (openFile.showOpenDialog(null) == 0) {
             this.myFile = openFile;
-            txtMinSup.setEnabled(true);
+//            txtMinSup.setEnabled(true);
             txtFileOut.setEnabled(true);
             btnHandling.setEnabled(true);
             txtFile.setText(openFile.getSelectedFile().getPath());

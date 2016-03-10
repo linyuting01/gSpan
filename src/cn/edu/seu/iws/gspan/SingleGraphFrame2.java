@@ -32,21 +32,20 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
 //        initComponents();
 //        this.Graph = Graph;
 //    }
-
     public SingleGraphFrame2(ArrayList<LtdGraph2> InputGraphs) {
         initComponents();
         this.InputGraphs = InputGraphs;
-        
+
         chkboxNames.setSelected(true);
         chkboxRelationshipLabel.setSelected(true);
         chkboxRelationships.setSelected(true);
 //        
 //        lblTotal.setText(this.InputGraphs.size() + "");
 //        lblIndex.setText("1");
-        
+
         this.IndexGraph = 0;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,7 +89,7 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
 
         btnReLoad.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -198,23 +197,23 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReLoad)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(chkboxRelationships)
+                        .addComponent(chkboxNames)
+                        .addComponent(jLabel5)
+                        .addComponent(chkboxRelationshipLabel))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNext)
                         .addComponent(jLabel1)
                         .addComponent(lblIndex)
-                        .addComponent(lblTotal)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chkboxRelationships)
-                            .addComponent(chkboxNames)
-                            .addComponent(jLabel5)
-                            .addComponent(chkboxRelationshipLabel))))
+                        .addComponent(lblTotal))
+                    .addComponent(btnReLoad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -362,16 +361,15 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
 //            }
 //        }
 //    }
-    
     private void BestView(int index) {
         LtdGraph2 Graph = this.InputGraphs.get(index);
-        
+
         lblTotal.setText("/" + this.InputGraphs.size());
-        lblIndex.setText("" + (this.IndexGraph+1));
-        
+        lblIndex.setText("" + (this.IndexGraph + 1));
+
         txtVertexs.setText("" + this.InputGraphs.get(this.IndexGraph).Vertexs.size());
         txtRelationships.setText("" + this.InputGraphs.get(this.IndexGraph).Relationships.size());
-        
+
         if (Graph != null) {
             Graphics g;
             g = jPanel1.getGraphics();
@@ -383,7 +381,11 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
 
             if (Graph.Vertexs.size() < 15) {
                 for (LtdGraph2.LtdGraph2Vertex vertex : Graph.Vertexs) {
-                    g2d.DrawPointX(vertex.id, Graph.Names.get(vertex.id), Graph.Pictures.get(vertex.id));
+                    if (chkboxNames.isSelected()) {
+                        g2d.DrawPointX(vertex.id, Graph.Names.get(vertex.id), Graph.Pictures.get(vertex.id));
+                    } else {
+                        g2d.DrawPointX(vertex.id, "", Graph.Pictures.get(vertex.id));
+                    }
                 }
 
                 for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graph).getEdgeMatrix()) {
@@ -393,14 +395,22 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
                     }
                     strlabel = strlabel.substring(2, strlabel.length());
 
-                    g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
+                    if (chkboxRelationships.isSelected()) {
+                        if (chkboxRelationshipLabel.isSelected()) {
+                            g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, strlabel);
+                        } else {
+                            g2d.DrawEdgeXY(edgeMatrix.from, edgeMatrix.to, "");
+                        }
+                    }
+
                 }
             } else if (Graph.Vertexs.size() <= 100) {
                 for (LtdGraph2.LtdGraph2Vertex vertex : Graph.Vertexs) {
-                    if (chkboxNames.isSelected())
+                    if (chkboxNames.isSelected()) {
                         g2d.DrawPointX100(vertex.id, Graph.Names.get(vertex.id), Graph.Pictures.get(vertex.id));
-                    else
+                    } else {
                         g2d.DrawPointX100(vertex.id, "", Graph.Pictures.get(vertex.id));
+                    }
                 }
 
                 for (LtdGraph.LtdGraphEdgeMatrix edgeMatrix : new LtdGraph(Graph).getEdgeMatrix()) {
@@ -410,14 +420,14 @@ public class SingleGraphFrame2 extends javax.swing.JFrame {
                     }
                     strlabel = strlabel.substring(2, strlabel.length());
 
-                    if (chkboxRelationships.isSelected())
-                    {
-                        if (chkboxRelationshipLabel.isSelected())
+                    if (chkboxRelationships.isSelected()) {
+                        if (chkboxRelationshipLabel.isSelected()) {
                             g2d.DrawEdgeXY100(edgeMatrix.from, edgeMatrix.to, strlabel);
-                        else
+                        } else {
                             g2d.DrawEdgeXY100(edgeMatrix.from, edgeMatrix.to, "");
+                        }
                     }
-                    
+
                 }
             } else {
                 g2d.DrawWarning();

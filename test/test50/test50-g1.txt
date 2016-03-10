@@ -1,0 +1,92 @@
+﻿GGG 1
+Lê Tuấn Đạt
+Nguyễn Châu
+Luong Thao Hieu
+Anh Phuong Dao
+Lê Mạnh Thắng
+Điền Hà
+Lộc Đồng Hồ
+Trần Quốc Hoàn
+Hoa Lý
+Chen Yu Xin
+Duc Bo
+Vu Thu Uyen
+Anh Vy
+Pham Thuy
+Thanh Nguyen
+Hanh Do
+Lillian Nguyễn
+nnn
+letuandat.png
+nguyenchau.png
+luongthaohieu.png
+anhphuongdao.png
+lemanhthang.png
+dienha.png
+locdongho.png
+tranquochoan.png
+hoaly.png
+chenyuxin.png
+ducbo.png
+vuthuuyen.png
+anhvy.png
+phamthuy.png
+thanhnguyen.png
+hanhdo.png
+lilliannguyen.png
+ppp
+Cùng công tác ở Uneti
+Cùng sở thích nghe nhạc
+rrr
+v 0 1
+v 1 1
+v 2 2
+v 3 2
+v 4 1
+v 5 2
+v 6 2
+v 7 1
+v 8 2
+v 9 1
+v 10 2
+v 11 2
+v 12 2
+v 13 2
+v 14 2
+v 15 1
+v 16 2
+e 0 12 2
+e 0 16 2
+e 2 3 1
+e 2 4 1
+e 2 5 1
+e 2 10 1
+e 2 11 1
+e 2 13 1
+e 2 15 1
+e 3 4 1
+e 3 5 1
+e 3 10 1
+e 3 11 1
+e 3 13 1
+e 3 15 1
+e 3 0 2
+e 4 5 1
+e 4 10 1
+e 4 11 1
+e 7 3 1
+e 7 1 2
+e 8 7 2
+e 8 3 2
+e 9 7 2
+e 9 3 2
+e 10 11 2
+e 11 13 1
+e 11 15 1
+e 13 15 1
+e 13 15 2
+e 14 0 2
+e 14 1 2
+e 14 6 2
+e 14 12 2
+e 15 2 1

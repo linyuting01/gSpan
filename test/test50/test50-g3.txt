@@ -1,0 +1,93 @@
+﻿GGG 3
+Nguyễn Châu
+Luong Thao Hieu
+Anh Phuong Dao
+Lillian Nguyễn
+Lan Anh Tran
+Nguyen Dieu Linh
+Nguyen Kim Hue
+Hiền Tít
+Thanh Hằng
+Thao Le
+Muối Chít
+Nguyen Loc
+Nga Bui
+Xuan Tran Thi
+Tran Thang
+Trần Thu Hiền
+Hằng Đinh
+Mai Anh
+Hiếu Lê
+Trần Ngọc Trình
+Tạ Đình Hưng
+Phan Thanh Thuy
+nnn
+nguyenchau.png
+luongthaohieu.png
+anhphuongdao.png
+lilliannguyen.png
+lananhtran.png
+nguyendieulinh.png
+nguyenkimhue.png
+hientit.png
+thanhhang.png
+thaole.png
+muoichit.png
+nguyenloc.png
+ngabui.png
+xuantranthi.png
+tranthang.png
+tranthuhien.png
+hangdinh.png
+maianh.png
+hieule.png
+tranngoctrinh.png
+tadinhhung.png
+phanthanhthuy.png
+ppp
+Bạn bè
+Họ hàng
+Cùng công tác ở Uneti
+Cùng sở thích nghe nhạc
+rrr
+v 0 1
+v 1 2
+v 2 2
+v 3 2
+v 4 2
+v 5 2
+v 6 2
+v 7 2
+v 8 2
+v 9 2
+v 10 2
+v 11 1
+v 12 2
+v 13 2
+v 14 1
+v 15 2
+v 16 2
+v 17 2
+v 18 1
+v 19 1
+v 20 1
+v 21 2
+e 4 1 1
+e 5 1 1
+e 6 1 1
+e 7 3 4
+e 8 1 1
+e 9 1 1
+e 10 1 1
+e 11 1 1
+e 12 1 1
+e 13 12 4
+e 14 1 1
+e 15 1 1
+e 16 18 2
+e 17 1 1
+e 18 2 1
+e 19 2 1
+e 20 2 1
+e 20 0 1
+e 21 2 1

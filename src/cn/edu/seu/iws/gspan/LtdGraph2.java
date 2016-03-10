@@ -141,7 +141,7 @@ public class LtdGraph2 extends LtdGraph {
             }
 
             for (int i = 0; i < Graph.Vertexs.size(); i++) {
-                
+
                 if (this.Names.contains(Graph.Names.get(Graph.Vertexs.get(i).id))) {
                     GetVertexByName(Graph.Names.get(Graph.Vertexs.get(i).id)).label = Graph.Vertexs.get(i).label;
                 }
@@ -149,15 +149,34 @@ public class LtdGraph2 extends LtdGraph {
             }
 
             for (int i = 0; i < Graph.Edges.size(); i++) {
-                String from = Graph.Names.get(Graph.Edges.get(i).from);
-                String to = Graph.Names.get(Graph.Edges.get(i).to);
+                String strError = "OK";
+                String from = "";
+                String to = "";
+
+                if (Graph.Edges.get(i).from < Graph.Names.size()) {
+                    from = Graph.Names.get(Graph.Edges.get(i).from);
+                } else {
+                    strError = "Error! From: " + Graph.Edges.get(i).from + "; To: " + Graph.Edges.get(i).to + "; Size: " + Graph.Names.size() + ";" + "\n";
+                }
+
+                if (Graph.Edges.get(i).to < Graph.Names.size()) {
+                    to = Graph.Names.get(Graph.Edges.get(i).to);
+                } else {
+                    strError = "Error! From: " + Graph.Edges.get(i).from + "; To: " + Graph.Edges.get(i).to + "; Size: " + Graph.Names.size() + ";" + "\n";
+                }
+
                 String relation = Graph.Relationships.get(Graph.Edges.get(i).label - 1);
 
-                if (!CheckContainEdge(GetVertexByName(from).id, GetVertexByName(to).id, GetRelationshipByName(relation))) {
-                    if (GetVertexByName(from).id < GetVertexByName(to).id)
-                        this.Edges.add(new LtdGraph2Edge(GetVertexByName(from).id, GetVertexByName(to).id, GetRelationshipByName(relation)));
-                    else
-                        this.Edges.add(new LtdGraph2Edge(GetVertexByName(to).id, GetVertexByName(from).id, GetRelationshipByName(relation)));
+                if ("OK".equals(strError)) {
+                    if (!CheckContainEdge(GetVertexByName(from).id, GetVertexByName(to).id, GetRelationshipByName(relation))) {
+                        if (GetVertexByName(from).id < GetVertexByName(to).id) {
+                            this.Edges.add(new LtdGraph2Edge(GetVertexByName(from).id, GetVertexByName(to).id, GetRelationshipByName(relation)));
+                        } else {
+                            this.Edges.add(new LtdGraph2Edge(GetVertexByName(to).id, GetVertexByName(from).id, GetRelationshipByName(relation)));
+                        }
+                    }
+                } else {
+                    System.out.println(strError);
                 }
 
             }

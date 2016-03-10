@@ -1,0 +1,42 @@
+﻿GGG 2
+Lê Mạnh Thắng
+Điền Hà
+Duc Bo
+Vu Thu Uyen
+Pham Thuy
+Trần Quốc Hoàn
+Luong Thao Hieu
+Anh Phuong Dao
+nnn
+lemanhthang.png
+dienha.png
+ducbo.png
+vuthuuyen.png
+phamthuy.png
+tranquochoan.png
+luongthaohieu.png
+anhphuongdao.png
+ppp
+Cùng công tác ở Uneti
+rrr
+v 0 1
+v 1 2
+v 2 2
+v 3 2
+v 4 2
+v 5 1
+v 6 2
+v 7 2
+e 0 6 1
+e 1 6 1
+e 2 6 1
+e 3 6 1
+e 4 7 1
+e 5 6 1
+e 6 5 1
+e 6 7 1
+e 7 5 1
+e 7 0 1
+e 7 1 1
+e 7 2 1
+e 7 3 1
