@@ -214,7 +214,7 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblRelationship)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboxRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboxRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnViewRelationships)))
                 .addContainerGap())
@@ -457,8 +457,7 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                 Logger.getLogger(SingleGraphFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
-        else {
+        } else {
             indexGraphs = 0;
             ViewGraph();
         }
@@ -560,7 +559,10 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         if (relationshipId != -1) {
             ArrayList<ChildGraph> newGraphs = new ArrayList<ChildGraph>();
             for (ChildGraph Graph : this.Graphs) {
-                if (CheckGraphOnlyRelationship(Graph, relationshipId + 1)) {
+//                if (CheckGraphOnlyRelationship(Graph, relationshipId + 1)) {
+//                    newGraphs.add(Graph);
+//                }
+                if (GraphHaveRelationship(Graph, relationshipId + 1)) {
                     newGraphs.add(Graph);
                 }
             }
@@ -633,5 +635,17 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         }
 
         return true;
+    }
+
+    private boolean GraphHaveRelationship(ChildGraph Graph, int relationshipId) {
+        LtdGraph MyGraph = new LtdGraph(Graph);
+        int key = 0;
+        for (LtdGraph.LtdGraphEdge Edge : MyGraph.Edges) {
+            if (Edge.label == relationshipId) {
+                key++;
+            }
+        }
+        
+        return key > 0;
     }
 }
