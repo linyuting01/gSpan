@@ -30,12 +30,14 @@ public class SingleGraphFrame extends javax.swing.JFrame {
     private ArrayList<String> relationships;
     private ArrayList<String> names;
     private ArrayList<String> pictures;
+    private ArrayList<LtdGraph2> LtdGraphs;
 
     /**
      * Creates new form SingleGraphFrame
      */
     public SingleGraphFrame() {
         initComponents();
+
     }
 
     public SingleGraphFrame(File file) {
@@ -46,6 +48,22 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         relationships = new ArrayList<String>();
         names = new ArrayList<String>();
         pictures = new ArrayList<String>();
+
+    }
+
+    public SingleGraphFrame(ArrayList<ChildGraph> Graphs, ArrayList<String> relationships, ArrayList<String> names, ArrayList<String> pictures) {
+        initComponents();
+        myfile = null;
+        this.Graphs = Graphs;
+        indexGraphs = -1;
+        this.relationships = relationships;
+        this.names = names;
+        this.pictures = pictures;
+
+        cboxRelationships.setVisible(false);
+        btnViewRelationships.setVisible(false);
+        lblRelationship.setVisible(false);
+//        ViewGraph();
     }
 
     /**
@@ -69,6 +87,10 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtIndex = new javax.swing.JTextField();
         btnNext4 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        btnViewRelationships = new javax.swing.JButton();
+        cboxRelationships = new javax.swing.JComboBox<>();
+        lblRelationship = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Đồ thị riêng");
@@ -145,6 +167,17 @@ public class SingleGraphFrame extends javax.swing.JFrame {
             }
         });
 
+        btnViewRelationships.setText("Xem");
+        btnViewRelationships.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewRelationshipsActionPerformed(evt);
+            }
+        });
+
+        cboxRelationships.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblRelationship.setText("Lọc theo quan hệ:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,13 +208,21 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblRelationship)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnViewRelationships)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNext)
                     .addComponent(jLabel1)
@@ -197,7 +238,14 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnViewRelationships)
+                    .addComponent(cboxRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRelationship))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -296,6 +344,11 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                     index++;
                 }
                 index++;
+
+                cboxRelationships.removeAllItems();
+                for (String relationship : relationships) {
+                    cboxRelationships.addItem(relationship);
+                }
 
                 /// Read Names
                 while (!("nnn".equals(lines.get(index)))) {
@@ -405,17 +458,27 @@ public class SingleGraphFrame extends javax.swing.JFrame {
             }
 
         }
+        else {
+            indexGraphs = 0;
+            ViewGraph();
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void ViewGraph() {
+        if (indexGraphs < 0) {
+            indexGraphs = 0;
+        }
+
         if (indexGraphs >= Graphs.size()) {
             indexGraphs = 0;
             JOptionPane.showMessageDialog(null, "Trở lại Đồ thị đầu tiên", "Mở đồ thị", JOptionPane.INFORMATION_MESSAGE);
             lblIndex.setText("" + (indexGraphs + 1));
+            lblTotal.setText("/" + Graphs.size());
         }
 
         if (indexGraphs < Graphs.size()) {
             lblIndex.setText("" + (indexGraphs + 1));
+            lblTotal.setText("/" + Graphs.size());
             Graphics g;
             g = jPanel1.getGraphics();
             g.clearRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
@@ -486,9 +549,26 @@ public class SingleGraphFrame extends javax.swing.JFrame {
 
     private void btnNext4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext4ActionPerformed
         // TODO add your handling code here:
-        indexGraphs = Integer.parseInt(txtIndex.getText())-1;
+        indexGraphs = Integer.parseInt(txtIndex.getText()) - 1;
         ViewGraph();
     }//GEN-LAST:event_btnNext4ActionPerformed
+
+    private void btnViewRelationshipsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRelationshipsActionPerformed
+        // TODO add your handling code here:
+        int relationshipId = relationships.indexOf(cboxRelationships.getSelectedItem());
+
+        if (relationshipId != -1) {
+            ArrayList<ChildGraph> newGraphs = new ArrayList<ChildGraph>();
+            for (ChildGraph Graph : this.Graphs) {
+                if (CheckGraphOnlyRelationship(Graph, relationshipId + 1)) {
+                    newGraphs.add(Graph);
+                }
+            }
+
+            SingleGraphFrame frmByRelationship = new SingleGraphFrame(newGraphs, this.relationships, this.names, this.pictures);
+            frmByRelationship.show();
+        }
+    }//GEN-LAST:event_btnViewRelationshipsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -531,12 +611,27 @@ public class SingleGraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnNext2;
     private javax.swing.JButton btnNext3;
     private javax.swing.JButton btnNext4;
+    private javax.swing.JButton btnViewRelationships;
+    private javax.swing.JComboBox<String> cboxRelationships;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblIndex;
+    private javax.swing.JLabel lblRelationship;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTextField txtIndex;
     // End of variables declaration//GEN-END:variables
+
+    private boolean CheckGraphOnlyRelationship(ChildGraph Graph, int relationshipId) {
+        LtdGraph MyGraph = new LtdGraph(Graph);
+        for (LtdGraph.LtdGraphEdge Edge : MyGraph.Edges) {
+            if (Edge.label != relationshipId) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
