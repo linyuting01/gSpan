@@ -1,0 +1,12 @@
+﻿Bạn bè
+rrr
+Luong Thao Hieu
+Nguyễn Châu
+nnn
+luongthaohieu.png
+nguyenchau.png
+ppp
+t # 0 * 1
+v 0 2
+v 1 2
+e 0 1 1 -1

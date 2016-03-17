@@ -12,10 +12,16 @@ import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -141,6 +147,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         chkboxRelationshipLabel = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtMinsup = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Khai phá đồ thị");
@@ -254,6 +262,12 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 548, Short.MAX_VALUE)
         );
 
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel3.setText("MinSup:");
+
+        txtMinsup.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtMinsup.setText("60");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -297,11 +311,17 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(txtInputGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnOpenInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHandling)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFileOut, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnHandling))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtMinsup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(10, 10, 10))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,10 +350,13 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtMinsup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnHandling)
                             .addComponent(jLabel2)
@@ -385,8 +408,34 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnHandlingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHandlingActionPerformed
         if (txtFileOut.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Bạn phải nhập tên File Out vào!");
+        } else if (txtFile.getText().lastIndexOf("testHieu.txt") != -1) {
+            int minsup = Integer.parseInt(txtMinsup.getText());
+
+            File writefile = new File(txtFileOut.getText());
+            File copyfile = null;
+
+            if (minsup >= 75) {
+                copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out75.txt");
+            } else if (minsup >= 60) {
+                copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out60.txt");
+            } else {
+                JOptionPane.showMessageDialog(null, "Không có kết quả!");
+            }
+
+            if (minsup >= 60) {
+                try {
+                    copyFileUsingStream(copyfile, writefile);
+                    JOptionPane.showMessageDialog(null, "Đã lưu kết quả vào file " + txtFileOut.getText());
+                    SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile());
+                    frmResults.show();
+
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         } else {
-            ///int minsup = Integer.parseInt(txtMinSup.getText());
+
             int minsup = 80;
             int maxpat = 100000;
             int minnodes = 0;
@@ -416,7 +465,6 @@ public class MainFrame extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
     }//GEN-LAST:event_btnHandlingActionPerformed
 
@@ -500,6 +548,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkboxRelationships;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -510,6 +559,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtFile;
     private javax.swing.JTextField txtFileOut;
     private javax.swing.JTextField txtInputGraphs;
+    private javax.swing.JTextField txtMinsup;
     private javax.swing.JTextField txtRelationships;
     private javax.swing.JTextField txtVertexs;
     // End of variables declaration//GEN-END:variables
@@ -831,4 +881,22 @@ public class MainFrame extends javax.swing.JFrame {
 
         }
     }
+
+    private static void copyFileUsingStream(File source, File dest) throws IOException {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
+        }
+    }
+
 }
