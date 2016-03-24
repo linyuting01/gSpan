@@ -408,6 +408,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnHandlingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHandlingActionPerformed
         if (txtFileOut.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Bạn phải nhập tên File Out vào!");
+            
+        /// in a case, the input file is "testHieu.txt"
         } else if (txtFile.getText().lastIndexOf("testHieu.txt") != -1) {
             int minsup = Integer.parseInt(txtMinsup.getText());
 
@@ -433,10 +435,11 @@ public class MainFrame extends javax.swing.JFrame {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
+        /// in other cases, the input file is NOT "testHieu.txt"
         } else {
 
-            int minsup = 80;
+            int minsup = Integer.parseInt(txtMinsup.getText());
             int maxpat = 100000;
             int minnodes = 0;
             boolean directed = false;
@@ -457,7 +460,7 @@ public class MainFrame extends javax.swing.JFrame {
                 gSpan gspan = new gSpan();
                 gspan.run(reader, writer, minsup, maxpat, minnodes, directed);
 
-                CleanFile(writefile);
+                CleanFile(writefile, minsup);
                 JOptionPane.showMessageDialog(null, "Đã lưu kết quả vào file " + txtFileOut.getText());
 
                 SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile());
@@ -564,7 +567,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtVertexs;
     // End of variables declaration//GEN-END:variables
 
-    private void CleanFile(File writefile) {
+    private void CleanFile(File writefile, int minsup) {
         ArrayList<String> lines = new ArrayList<String>();
         ArrayList<ChildGraph> Graphs = new ArrayList<ChildGraph>();
 
@@ -623,7 +626,15 @@ public class MainFrame extends javax.swing.JFrame {
             graph.t = "t # " + index + " * 1";
             index++;
         }
-
+        
+        /// Remove childgraphs follow minsup
+        //  The lower minsup is, the lesser the 'Graphs' have childgraphs
+        int removes = (int)(Graphs.size() * (100-minsup) / 100);
+        ///JOptionPane.showMessageDialog(null, removes + "");
+        for (int i = 0; i < removes; i++) {
+            Graphs.remove(Graphs.size()-1);
+        }
+        
         /// Write file
         try {
             FileWriter writer = new FileWriter(writefile);
