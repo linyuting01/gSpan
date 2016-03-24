@@ -20,8 +20,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.sql.Time;
+import java.text.DecimalFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -125,23 +129,23 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnOpen = new javax.swing.JButton();
+        btnOpenInputFile = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtFile = new javax.swing.JTextField();
         btnHandling = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtFileOut = new javax.swing.JTextField();
-        btnReload = new javax.swing.JButton();
+        btnReloadAutoView = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         txtVertexs = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtRelationships = new javax.swing.JTextField();
-        btnReload1 = new javax.swing.JButton();
+        btnReloadBestView = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtInputGraphs = new javax.swing.JTextField();
-        btnOpenInput = new javax.swing.JButton();
+        btnOpenInputGraphs = new javax.swing.JButton();
         chkboxRelationships = new javax.swing.JCheckBox();
         chkboxNames = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
@@ -153,11 +157,11 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Khai phá đồ thị");
 
-        btnOpen.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnOpen.setText("Open");
-        btnOpen.addActionListener(new java.awt.event.ActionListener() {
+        btnOpenInputFile.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnOpenInputFile.setText("Open");
+        btnOpenInputFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOpenActionPerformed(evt);
+                btnOpenInputFileActionPerformed(evt);
             }
         });
 
@@ -182,11 +186,11 @@ public class MainFrame extends javax.swing.JFrame {
         txtFileOut.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtFileOut.setEnabled(false);
 
-        btnReload.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnReload.setText("Auto View");
-        btnReload.addActionListener(new java.awt.event.ActionListener() {
+        btnReloadAutoView.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnReloadAutoView.setText("Auto View");
+        btnReloadAutoView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReloadActionPerformed(evt);
+                btnReloadAutoViewActionPerformed(evt);
             }
         });
 
@@ -205,11 +209,11 @@ public class MainFrame extends javax.swing.JFrame {
         txtRelationships.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtRelationships.setForeground(new java.awt.Color(153, 0, 0));
 
-        btnReload1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnReload1.setText("Best View");
-        btnReload1.addActionListener(new java.awt.event.ActionListener() {
+        btnReloadBestView.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnReloadBestView.setText("Best View");
+        btnReloadBestView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReload1ActionPerformed(evt);
+                btnReloadBestViewActionPerformed(evt);
             }
         });
 
@@ -221,11 +225,11 @@ public class MainFrame extends javax.swing.JFrame {
         txtInputGraphs.setForeground(new java.awt.Color(153, 0, 0));
         txtInputGraphs.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        btnOpenInput.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnOpenInput.setText("Xem các đồ thị đầu vào");
-        btnOpenInput.addActionListener(new java.awt.event.ActionListener() {
+        btnOpenInputGraphs.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnOpenInputGraphs.setText("Xem các đồ thị đầu vào");
+        btnOpenInputGraphs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOpenInputActionPerformed(evt);
+                btnOpenInputGraphsActionPerformed(evt);
             }
         });
 
@@ -280,7 +284,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOpen)
+                        .addComponent(btnOpenInputFile)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
@@ -290,9 +294,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(chkboxRelationshipLabel)
                         .addGap(75, 75, 75)
-                        .addComponent(btnReload1)
+                        .addComponent(btnReloadBestView)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReload)
+                        .addComponent(btnReloadAutoView)
                         .addGap(21, 21, 21))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -309,7 +313,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtInputGraphs, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnOpenInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnOpenInputGraphs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -337,9 +341,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnOpen)
-                    .addComponent(btnReload)
-                    .addComponent(btnReload1)
+                    .addComponent(btnOpenInputFile)
+                    .addComponent(btnReloadAutoView)
+                    .addComponent(btnReloadBestView)
                     .addComponent(chkboxRelationships)
                     .addComponent(chkboxNames)
                     .addComponent(jLabel5)
@@ -371,14 +375,14 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txtRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnOpenInput))))
+                            .addComponent(btnOpenInputGraphs))))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+    private void btnOpenInputFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenInputFileActionPerformed
 
         ReadInputFile();
         this.Graph = new LtdGraph2(InputGraphs);
@@ -403,40 +407,44 @@ public class MainFrame extends javax.swing.JFrame {
 //            chkboxRelationshipLabel.setSelected(false);
 //        }
         LoadBestView();
-    }//GEN-LAST:event_btnOpenActionPerformed
+    }//GEN-LAST:event_btnOpenInputFileActionPerformed
 
     private void btnHandlingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHandlingActionPerformed
+        long startTime = System.currentTimeMillis();
+
         if (txtFileOut.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Bạn phải nhập tên File Out vào!");
-            
-        /// in a case, the input file is "testHieu.txt"
+
+            /// in a case, the input file is "testHieu.txt"
         } else if (txtFile.getText().lastIndexOf("testHieu.txt") != -1) {
             int minsup = Integer.parseInt(txtMinsup.getText());
 
             File writefile = new File(txtFileOut.getText());
             File copyfile = null;
 
-            if (minsup >= 75) {
-                copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out75.txt");
-            } else if (minsup >= 60) {
+            if (minsup <= 60) {
                 copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out60.txt");
             } else {
-                JOptionPane.showMessageDialog(null, "Không có kết quả!");
+                copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out75.txt");
             }
 
-            if (minsup >= 60) {
+//            if (minsup >= 0 && minsup <= 100) {
                 try {
                     copyFileUsingStream(copyfile, writefile);
-                    JOptionPane.showMessageDialog(null, "Đã lưu kết quả vào file " + txtFileOut.getText());
-                    SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile());
+                    long spendTime = (System.currentTimeMillis() - startTime);
+                    String strInfos = "Đã lưu kết quả vào file " + txtFileOut.getText() + "\n";
+                    strInfos += "Thời gian tính toán: " + 1f * spendTime / 1000 + "s.";
+                    JOptionPane.showMessageDialog(null, strInfos);
+
+                    SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile(), spendTime);
                     frmResults.show();
 
                 } catch (IOException ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            
-        /// in other cases, the input file is NOT "testHieu.txt"
+//            }
+
+            /// in other cases, the input file is NOT "testHieu.txt"
         } else {
 
             int minsup = Integer.parseInt(txtMinsup.getText());
@@ -461,9 +469,13 @@ public class MainFrame extends javax.swing.JFrame {
                 gspan.run(reader, writer, minsup, maxpat, minnodes, directed);
 
                 CleanFile(writefile, minsup);
-                JOptionPane.showMessageDialog(null, "Đã lưu kết quả vào file " + txtFileOut.getText());
 
-                SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile());
+                long spendTime = (System.currentTimeMillis() - startTime);
+                String strInfos = "Đã lưu kết quả vào file " + txtFileOut.getText() + "\n";
+                strInfos += "Thời gian tính toán: " + 1f * spendTime / 1000 + "s.";
+                JOptionPane.showMessageDialog(null, strInfos);
+
+                SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile(), spendTime);
                 frmResults.show();
             } catch (Exception ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -471,22 +483,22 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnHandlingActionPerformed
 
-    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+    private void btnReloadAutoViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadAutoViewActionPerformed
         LoadResult();
 
-    }//GEN-LAST:event_btnReloadActionPerformed
+    }//GEN-LAST:event_btnReloadAutoViewActionPerformed
 
-    private void btnReload1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReload1ActionPerformed
+    private void btnReloadBestViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadBestViewActionPerformed
         // TODO add your handling code here:
         LoadBestView();
-    }//GEN-LAST:event_btnReload1ActionPerformed
+    }//GEN-LAST:event_btnReloadBestViewActionPerformed
 
-    private void btnOpenInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenInputActionPerformed
+    private void btnOpenInputGraphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenInputGraphsActionPerformed
         // TODO add your handling code here:
         SingleGraphFrame2 inputFrames = new SingleGraphFrame2(InputGraphs);
         inputFrames.show();
 
-    }//GEN-LAST:event_btnOpenInputActionPerformed
+    }//GEN-LAST:event_btnOpenInputGraphsActionPerformed
 
     private void chkboxRelationshipsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkboxRelationshipsStateChanged
         // TODO add your handling code here:
@@ -542,10 +554,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHandling;
-    private javax.swing.JButton btnOpen;
-    private javax.swing.JButton btnOpenInput;
-    private javax.swing.JButton btnReload;
-    private javax.swing.JButton btnReload1;
+    private javax.swing.JButton btnOpenInputFile;
+    private javax.swing.JButton btnOpenInputGraphs;
+    private javax.swing.JButton btnReloadAutoView;
+    private javax.swing.JButton btnReloadBestView;
     private javax.swing.JCheckBox chkboxNames;
     private javax.swing.JCheckBox chkboxRelationshipLabel;
     private javax.swing.JCheckBox chkboxRelationships;
@@ -626,15 +638,15 @@ public class MainFrame extends javax.swing.JFrame {
             graph.t = "t # " + index + " * 1";
             index++;
         }
-        
+
         /// Remove childgraphs follow minsup
-        //  The lower minsup is, the lesser the 'Graphs' have childgraphs
-        int removes = (int)(Graphs.size() * (100-minsup) / 100);
+        //  The higher minsup is, the lesser the 'Graphs' have childgraphs
+        int removes = (int) (Graphs.size() * (minsup) / 100);
         ///JOptionPane.showMessageDialog(null, removes + "");
         for (int i = 0; i < removes; i++) {
-            Graphs.remove(Graphs.size()-1);
+            Graphs.remove(Graphs.size() - 1);
         }
-        
+
         /// Write file
         try {
             FileWriter writer = new FileWriter(writefile);

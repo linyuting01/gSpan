@@ -48,7 +48,21 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         relationships = new ArrayList<String>();
         names = new ArrayList<String>();
         pictures = new ArrayList<String>();
+        
+        labelSpendTime.setVisible(false);
+    }
 
+    public SingleGraphFrame(File file, long spendTime) {
+        initComponents();
+        myfile = file;
+        Graphs = new ArrayList<ChildGraph>();
+        indexGraphs = -1;
+        relationships = new ArrayList<String>();
+        names = new ArrayList<String>();
+        pictures = new ArrayList<String>();
+
+        labelSpendTime.setVisible(true);
+        labelSpendTime.setText(labelSpendTime.getText() + " " + 1f*spendTime/1000 + "s");
     }
 
     public SingleGraphFrame(ArrayList<ChildGraph> Graphs, ArrayList<String> relationships, ArrayList<String> names, ArrayList<String> pictures) {
@@ -63,6 +77,7 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         cboxRelationships.setVisible(false);
         btnViewRelationships.setVisible(false);
         lblRelationship.setVisible(false);
+        labelSpendTime.setVisible(false);
 //        ViewGraph();
     }
 
@@ -91,6 +106,7 @@ public class SingleGraphFrame extends javax.swing.JFrame {
         btnViewRelationships = new javax.swing.JButton();
         cboxRelationships = new javax.swing.JComboBox<>();
         lblRelationship = new javax.swing.JLabel();
+        labelSpendTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Đồ thị riêng");
@@ -178,6 +194,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
 
         lblRelationship.setText("Lọc theo quan hệ:");
 
+        labelSpendTime.setText("Thời gian tính toán:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,7 +229,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(labelSpendTime)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblRelationship)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,7 +263,8 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnViewRelationships)
                     .addComponent(cboxRelationships, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRelationship))
+                    .addComponent(lblRelationship)
+                    .addComponent(labelSpendTime))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -620,6 +640,7 @@ public class SingleGraphFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel labelSpendTime;
     private javax.swing.JLabel lblIndex;
     private javax.swing.JLabel lblRelationship;
     private javax.swing.JLabel lblTotal;
@@ -645,7 +666,7 @@ public class SingleGraphFrame extends javax.swing.JFrame {
                 key++;
             }
         }
-        
+
         return key > 0;
     }
 }

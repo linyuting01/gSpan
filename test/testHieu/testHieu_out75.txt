@@ -1,19 +1,12 @@
 ﻿Bạn bè
-Cùng công tác tại Uneti
 rrr
 Luong Thao Hieu
 Nguyễn Châu
-Anh Phuong Dao
 nnn
 luongthaohieu.png
 nguyenchau.png
-anhphuongdao.png
 ppp
 t # 0 * 1
 v 0 2
 v 1 2
 e 0 1 1 -1
-t # 0 * 2
-v 0 2
-v 2 2
-e 0 2 2 -1

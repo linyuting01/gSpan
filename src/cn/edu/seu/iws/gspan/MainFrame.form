@@ -32,7 +32,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="txtFile" min="-2" pref="223" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnOpen" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnOpenInputFile" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -42,9 +42,9 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="chkboxRelationshipLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                      <Component id="btnReload1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnReloadBestView" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnReload" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnReloadAutoView" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -65,7 +65,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="txtInputGraphs" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="btnOpenInput" max="32767" attributes="0"/>
+                          <Component id="btnOpenInputGraphs" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -103,9 +103,9 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtFile" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnOpen" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnReload" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnReload1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnOpenInputFile" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReloadAutoView" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReloadBestView" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="chkboxRelationships" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="chkboxNames" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -142,7 +142,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtRelationships" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnOpenInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnOpenInputGraphs" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -152,7 +152,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnOpen">
+    <Component class="javax.swing.JButton" name="btnOpenInputFile">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="12" style="1"/>
@@ -160,7 +160,7 @@
         <Property name="text" type="java.lang.String" value="Open"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenInputFileActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -207,7 +207,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnReload">
+    <Component class="javax.swing.JButton" name="btnReloadAutoView">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="11" style="1"/>
@@ -215,7 +215,7 @@
         <Property name="text" type="java.lang.String" value="Auto View"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReloadActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReloadAutoViewActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -263,7 +263,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnReload1">
+    <Component class="javax.swing.JButton" name="btnReloadBestView">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="11" style="1"/>
@@ -271,7 +271,7 @@
         <Property name="text" type="java.lang.String" value="Best View"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReload1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReloadBestViewActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
@@ -296,7 +296,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnOpenInput">
+    <Component class="javax.swing.JButton" name="btnOpenInputGraphs">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="12" style="1"/>
@@ -304,7 +304,7 @@
         <Property name="text" type="java.lang.String" value="Xem c&#xe1;c &#x111;&#x1ed3; th&#x1ecb; &#x111;&#x1ea7;u v&#xe0;o"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenInputActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenInputGraphsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkboxRelationships">

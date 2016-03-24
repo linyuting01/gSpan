@@ -59,7 +59,8 @@
                   </Group>
                   <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="labelSpendTime" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblRelationship" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cboxRelationships" min="-2" pref="298" max="-2" attributes="0"/>
@@ -98,6 +99,7 @@
                   <Component id="btnViewRelationships" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cboxRelationships" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblRelationship" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelSpendTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -247,6 +249,11 @@
     <Component class="javax.swing.JLabel" name="lblRelationship">
       <Properties>
         <Property name="text" type="java.lang.String" value="L&#x1ecd;c theo quan h&#x1ec7;:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelSpendTime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian t&#xed;nh to&#xe1;n:"/>
       </Properties>
     </Component>
   </SubComponents>
