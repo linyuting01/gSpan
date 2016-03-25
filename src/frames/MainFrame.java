@@ -3,10 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.edu.seu.iws.gspan;
+package frames;
 
-import cn.edu.seu.iws.gspan.LtdGraph2.LtdGraph2Edge;
-import cn.edu.seu.iws.gspan.LtdGraph2.LtdGraph2Vertex;
+import model.ChildGraph;
+import model.LtdGraph;
+import model.LtdGraph2;
+import model.LtdGraph2.LtdGraph2Edge;
+import model.LtdGraph2.LtdGraph2Vertex;
+import cn.edu.seu.iws.gspan.MyGraphics;
+import cn.edu.seu.iws.gspan.gSpan;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.BufferedReader;

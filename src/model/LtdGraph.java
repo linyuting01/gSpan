@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.edu.seu.iws.gspan;
+package model;
 
-import cn.edu.seu.iws.gspan.LtdGraph2.*;
+import model.LtdGraph2.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;

@@ -780,7 +780,7 @@ public class gSpan {
         System.out.print(a);
     }
 
-    gSpan() {
+    public gSpan() {
 
     }
 

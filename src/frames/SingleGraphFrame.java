@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.edu.seu.iws.gspan;
+package frames;
 
+import model.ChildGraph;
+import model.LtdGraph;
+import model.LtdGraph2;
+import cn.edu.seu.iws.gspan.MyGraphics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.BufferedReader;

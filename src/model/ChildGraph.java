@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.edu.seu.iws.gspan;
+package model;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Limited
  */
 public class ChildGraph {
-
+    
     public String t;
     public ArrayList<String> Points;
     public ArrayList<String> Vectors;
@@ -32,7 +32,6 @@ public class ChildGraph {
         hash = 97 * hash + Objects.hashCode(this.Vectors);
         return hash;
     }
-
     public void sort() {
         Points.sort(null);
         Vectors.sort(null);
@@ -61,7 +60,6 @@ public class ChildGraph {
         }
         return true;
     }
-
     private boolean IsPointsEquals(ArrayList<String> Points) {
         if (this.Points.size() != Points.size()) {
             return false;
@@ -94,7 +92,6 @@ public class ChildGraph {
 
         return this.Points.size() == check;
     }
-
     private boolean IsVectorsEquals(ArrayList<String> Vectors) {
         if (this.Vectors.size() != Vectors.size()) {
             return false;

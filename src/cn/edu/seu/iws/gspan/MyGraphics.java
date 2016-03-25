@@ -127,7 +127,6 @@ public class MyGraphics {
         g2d.fillOval(temp.x, temp.y, 5, 5);
         luudiem[index] = temp;
     }
-
     public void DrawPointX(int index, String name, String picture) {
         Point temp = new Point(Positions[index].x, Positions[index].y);
 
@@ -152,7 +151,6 @@ public class MyGraphics {
 //
 //        g2d.fillOval(temp.x, temp.y, 5, 5);
     }
-
     public void DrawPointX100(int index, String name, String picture) {
         Point temp = new Point(Positions100[index].x, Positions100[index].y);
 
@@ -186,8 +184,7 @@ public class MyGraphics {
         g2d.setFont(new Font(null, Font.BOLD, 12));
         g2d.drawString(label, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
     }
-
-    void DrawEdge(int from, int to, Point p1, Point p2, String label) {
+    public void DrawEdge(int from, int to, Point p1, Point p2, String label) {
         g2d.setColor(Color.red);
         g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
 
@@ -195,8 +192,7 @@ public class MyGraphics {
         g2d.setFont(new Font(null, Font.BOLD, 12));
         g2d.drawString(label + " " + from + "->" + to, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
     }
-
-    void DrawEdgeXY(int from, int to, String label) {
+    public void DrawEdgeXY(int from, int to, String label) {
         Point p1 = new Point(Positions[from].x, Positions[from].y);
         Point p2 = new Point(Positions[to].x, Positions[to].y);
 
@@ -212,8 +208,7 @@ public class MyGraphics {
         g2d.drawString(label, (p1.x + p2.x + 32) / 2, (p1.y + p2.y + 32) / 2);
         ///g2d.setTransform(saveAT);
     }
-
-    void DrawEdgeXY100(int from, int to, String label) {
+    public void DrawEdgeXY100(int from, int to, String label) {
         Point p1 = new Point(Positions100[from].x, Positions100[from].y);
         Point p2 = new Point(Positions100[to].x, Positions100[to].y);
 
@@ -225,7 +220,7 @@ public class MyGraphics {
         g2d.drawString(label, (p1.x + p2.x + 32) / 2, (p1.y + p2.y + 32) / 2);
     }
 
-    void DrawWarning() {
+    public void DrawWarning() {
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font(null, Font.BOLD, 24));
         g2d.drawString("ĐỒ THỊ QUÁ LỚN ĐỂ HIỂN THỊ", 220, 200);
