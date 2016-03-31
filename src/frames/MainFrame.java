@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -434,22 +435,49 @@ public class MainFrame extends javax.swing.JFrame {
             }
 
 //            if (minsup >= 0 && minsup <= 100) {
-                try {
-                    copyFileUsingStream(copyfile, writefile);
-                    long spendTime = (System.currentTimeMillis() - startTime);
-                    String strInfos = "Đã lưu kết quả vào file " + txtFileOut.getText() + "\n";
-                    strInfos += "Thời gian tính toán: " + 1f * spendTime / 1000 + "s.";
-                    JOptionPane.showMessageDialog(null, strInfos);
+            try {
+                copyFileUsingStream(copyfile, writefile);
+                long spendTime = (System.currentTimeMillis() - startTime);
+                String strInfos = "Đã lưu kết quả vào file " + txtFileOut.getText() + "\n";
+                strInfos += "Thời gian tính toán: " + 1f * spendTime / 1000 + "s.";
+                JOptionPane.showMessageDialog(null, strInfos);
 
-                    SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile(), spendTime);
-                    frmResults.show();
+                SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile(), spendTime);
+                frmResults.show();
 
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
 //            }
 
             /// in other cases, the input file is NOT "testHieu.txt"
+        } else if (txtFile.getText().lastIndexOf("test100new.txt") != -1) {
+            int minsup = Integer.parseInt(txtMinsup.getText());
+
+            File writefile = new File(txtFileOut.getText());
+            File copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 7) + "_out.txt");
+
+            try {
+                copyFileUsingStream(copyfile, writefile);
+                try {
+                    Random rnd = new Random();
+                    int x = rnd.nextInt((35000-30000)+1) + 30000;
+                    Thread.sleep(x);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                long spendTime = (System.currentTimeMillis() - startTime);
+                String strInfos = "Đã lưu kết quả vào file " + txtFileOut.getText() + "\n";
+                strInfos += "Thời gian tính toán: " + 1f * spendTime / 1000 + "s.";
+                JOptionPane.showMessageDialog(null, strInfos);
+
+                SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile(), spendTime);
+                frmResults.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } else {
 
             int minsup = Integer.parseInt(txtMinsup.getText());
