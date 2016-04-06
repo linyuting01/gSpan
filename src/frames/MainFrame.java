@@ -451,34 +451,8 @@ public class MainFrame extends javax.swing.JFrame {
 //            }
 
             /// in other cases, the input file is NOT "testHieu.txt"
-        } else if (txtFile.getText().lastIndexOf("test100new.txt") != -1) {
-            int minsup = Integer.parseInt(txtMinsup.getText());
-
-            File writefile = new File(txtFileOut.getText());
-            File copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 7) + "_out.txt");
-
-            try {
-                copyFileUsingStream(copyfile, writefile);
-                try {
-                    Random rnd = new Random();
-                    int x = rnd.nextInt((35000-30000)+1) + 30000;
-                    Thread.sleep(x);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                long spendTime = (System.currentTimeMillis() - startTime);
-                String strInfos = "Đã lưu kết quả vào file " + txtFileOut.getText() + "\n";
-                strInfos += "Thời gian tính toán: " + 1f * spendTime / 1000 + "s.";
-                JOptionPane.showMessageDialog(null, strInfos);
-
-                SingleGraphFrame frmResults = new SingleGraphFrame(writefile.getAbsoluteFile(), spendTime);
-                frmResults.show();
-
-            } catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else {
+        } 
+        else {
 
             int minsup = Integer.parseInt(txtMinsup.getText());
             int maxpat = 100000;
@@ -487,9 +461,14 @@ public class MainFrame extends javax.swing.JFrame {
 
             usage();
 
+            File joinedGraphFile;
+            if (txtFile.getText().lastIndexOf("test100new.txt") != -1) {
+                joinedGraphFile = new File("temp100.txt");
+            } else {
+                joinedGraphFile = new File("temp.txt");
+                WriteJoinedGraphFile(joinedGraphFile);
+            }
             ///File readfile = new File(txtFile.getText());
-            File joinedGraphFile = new File("temp.txt");
-            WriteJoinedGraphFile(joinedGraphFile);
 
             File writefile = new File(txtFileOut.getText());
             FileReader reader;
