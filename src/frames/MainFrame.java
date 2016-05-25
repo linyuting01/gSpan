@@ -428,11 +428,11 @@ public class MainFrame extends javax.swing.JFrame {
             File writefile = new File(txtFileOut.getText());
             File copyfile = null;
 
-            if (minsup <= 50) {
-                copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out50.txt");
+            if (minsup < 50) {
+                copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out49.txt");
             }
-            else if (minsup <= 60) {
-                copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out60.txt");
+            else if (minsup < 75) {
+                copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out50.txt");
             } 
             else if (minsup < 80) {
                 copyfile = new File(txtFile.getText().substring(0, txtFile.getText().length() - 4) + "_out75.txt");

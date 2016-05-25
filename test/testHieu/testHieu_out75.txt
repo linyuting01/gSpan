@@ -2,11 +2,23 @@
 rrr
 Luong Thao Hieu
 Nguyễn Châu
+Lê Tuấn Đạt
 nnn
 luongthaohieu.png
 nguyenchau.png
+letuandat.png
 ppp
 t # 0 * 1
 v 0 2
-v 1 2
+v 1 1
+v 2 1
+e 0 1 1 -1
+e 1 2 1 -1
+t # 0 * 2
+v 1 1
+v 2 1
+e 1 2 1 -1
+t # 0 * 3
+v 0 2
+v 1 1
 e 0 1 1 -1
